@@ -1,19 +1,20 @@
 import styled from "@emotion/styled"
-import React from "react"
-import { Emoji } from "src/components/Emoji"
+import Link from "next/link"
+import { FiHome } from "react-icons/fi"
 
-type Props = {}
-
-const CustomError: React.FC<Props> = () => {
+const CustomError: React.FC = () => {
   return (
     <StyledWrapper>
-      <div className="wrapper">
-        <div className="top">
-          <div>4</div>
-          <Emoji>🤔</Emoji>
-          <div>4</div>
-        </div>
-        <div className="text">Post not found</div>
+      <div className="error-content">
+        <h1 className="error-code">404</h1>
+        <h2 className="error-title">Page Not Found</h2>
+        <p className="error-message">
+          The page you're looking for doesn't exist or has been moved.
+        </p>
+        <Link href="/" className="home-link">
+          <FiHome />
+          Go back home
+        </Link>
       </div>
     </StyledWrapper>
   )
@@ -22,30 +23,68 @@ const CustomError: React.FC<Props> = () => {
 export default CustomError
 
 const StyledWrapper = styled.div`
-  margin: 0 auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  border-radius: 1.5rem;
-  max-width: 56rem;
-  .wrapper {
-    display: flex;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-    flex-direction: column;
-    gap: 2.5rem;
-    align-items: center;
-    > .top {
-      display: flex;
-      align-items: center;
-      font-size: 3.75rem;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+
+  .error-content {
+    text-align: center;
+
+    .error-code {
+      font-size: 8rem;
+      font-weight: 900;
       line-height: 1;
+      background: linear-gradient(
+        135deg,
+        ${({ theme }) => theme.colors.primary},
+        ${({ theme }) => theme.colors.secondary}
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+
+      @media (max-width: 640px) {
+        font-size: 5rem;
+      }
     }
-    > .text {
-      font-size: 1.875rem;
-      line-height: 2.25rem;
-      color: ${({ theme }) => theme.colors.gray11};
+
+    .error-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: ${({ theme }) => theme.colors.gray12};
+      margin-bottom: 1rem;
+    }
+
+    .error-message {
+      font-size: 1rem;
+      color: ${({ theme }) => theme.colors.gray10};
+      margin-bottom: 2rem;
+      max-width: 400px;
+    }
+
+    .home-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.5rem;
+      border-radius: 10px;
+      background: ${({ theme }) => theme.colors.primary};
+      color: white;
+      font-weight: 600;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: ${({ theme }) => theme.colors.primaryHover};
+        transform: translateY(-2px);
+      }
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
     }
   }
 `
