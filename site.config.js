@@ -2,7 +2,7 @@ const CONFIG = {
   // profile setting (required)
   profile: {
     name: "Abdulaziz Al-Zabin",
-    image: "/avatar.png", // If you want to create your own notion avatar, check out https://notion-avatar.vercel.app
+    image: "/avatar.png",
     role: "CyberSecurity Enthusiast",
     bio: "Hey, I'm 4ΣiΣ, A CyberSec guy, and this is my blog",
     email: "zabinaziz0@gmail.com",
@@ -23,11 +23,11 @@ const CONFIG = {
     scheme: "dark", // 'light' | 'dark' | 'system'
   },
 
-  // CONFIG configration (required)
+  // CONFIG configuration (required)
   link: "https://abdulazizalzabin.com",
-  since: 2025, // If leave this empty, current year will be used.
-  lang: "en-US", // ['en-US', 'zh-CN', 'zh-HK', 'zh-TW', 'ja-JP', 'es-ES', 'ko-KR']
-  ogImageGenerateURL: "https://og-image-korean.vercel.app", // The link to generate OG image, don't end with a slash
+  since: 2025,
+  lang: "en-US",
+  ogImageGenerateURL: "https://og-image-korean.vercel.app",
 
   // notion configuration (required)
   notionConfig: {
@@ -54,7 +54,7 @@ const CONFIG = {
     },
   },
   utterances: {
-    enable: true,
+    enable: false,
     config: {
       repo: process.env.NEXT_PUBLIC_UTTERANCES_REPO || "",
       "issue-term": "og:title",
@@ -65,11 +65,11 @@ const CONFIG = {
     enable: false,
     config: {
       host: "https://cusdis.com",
-      appid: "", // Embed Code -> data-app-id value
+      appid: "",
     },
   },
-  isProd: process.env.VERCEL_ENV === "production", // distinguish between development and production environment (ref: https://vercel.com/docs/environment-variables#system-environment-variables)
-  revalidateTime: 21600 * 7, // revalidate time for [slug], index
+  isProd: process.env.VERCEL_ENV === "production",
+  revalidateTime: 21600 * 7,
 }
 
 module.exports = { CONFIG }

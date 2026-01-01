@@ -1,77 +1,76 @@
 import { Global as _Global, css, useTheme } from "@emotion/react"
 
-import { ThemeProvider as _ThemeProvider } from "@emotion/react"
-import { pretendard } from "src/assets"
-
 export const Global = () => {
-  const theme = useTheme()
+  const theme: any = useTheme()
 
   return (
     <_Global
       styles={css`
-        body {
+        * {
+          box-sizing: border-box;
           margin: 0;
           padding: 0;
+        }
+
+        html {
+          scroll-behavior: smooth;
+        }
+
+        body {
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+          background-color: ${theme.colors.gray1};
           color: ${theme.colors.gray12};
-          background-color: ${theme.colors.gray2};
-          font-family: ${pretendard.style.fontFamily};
-          font-weight: ${pretendard.style.fontWeight};
-          font-style: ${pretendard.style.fontStyle};
-        }
-
-        * {
-          color-scheme: ${theme.scheme};
-          box-sizing: border-box;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-          margin: 0;
-          font-weight: inherit;
-          font-style: inherit;
+          transition: background-color 0.3s ease, color 0.3s ease;
+          line-height: 1.6;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
         }
 
         a {
-          all: unset;
-          cursor: pointer;
-        }
-
-        ul {
-          padding: 0;
-        }
-
-        // init button
-        button {
-          all: unset;
-          cursor: pointer;
-        }
-
-        // init input
-        input {
-          all: unset;
-          box-sizing: border-box;
-        }
-
-        // init textarea
-        textarea {
-          border: none;
-          background-color: transparent;
-          font-family: inherit;
-          padding: 0;
-          outline: none;
-          resize: none;
           color: inherit;
+          text-decoration: none;
         }
 
-        hr {
-          width: 100%;
+        button {
+          cursor: pointer;
           border: none;
-          margin: 0;
-          border-top: 1px solid ${theme.colors.gray6};
+          background: none;
+          font-family: inherit;
+        }
+
+        input, textarea {
+          font-family: inherit;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: ${theme.colors.gray2};
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: ${theme.colors.gray6};
+          border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: ${theme.colors.gray7};
+        }
+
+        /* Selection */
+        ::selection {
+          background: ${theme.colors.primary};
+          color: white;
+        }
+
+        /* Focus outline */
+        :focus-visible {
+          outline: 2px solid ${theme.colors.primary};
+          outline-offset: 2px;
         }
       `}
     />
