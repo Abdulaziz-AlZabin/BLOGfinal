@@ -77,7 +77,7 @@ const AboutPage = () => {
               <h2>About Me</h2>
               <p>{CONFIG.profile.bio}</p>
               <p>
-                Welcome to my corner of the internet! I'm passionate about cybersecurity, 
+                Welcome to my corner of the internet! I&apos;m passionate about cybersecurity, 
                 constantly exploring the ever-evolving landscape of digital threats and defenses. 
                 This blog is where I share my insights, research, and experiences in the field.
               </p>
