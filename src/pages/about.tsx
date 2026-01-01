@@ -137,7 +137,7 @@ const AboutPage = () => {
             <section className="about-section">
               <h2>Get In Touch</h2>
               <p>
-                Have questions, ideas, or just want to say hi? I'm always open to connecting 
+                Have questions, ideas, or just want to say hi? I&apos;m always open to connecting 
                 with like-minded individuals. Feel free to reach out through any of the 
                 platforms above or send me an email directly.
               </p>
