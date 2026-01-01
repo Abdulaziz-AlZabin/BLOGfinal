@@ -82,9 +82,9 @@ const AboutPage = () => {
                 This blog is where I share my insights, research, and experiences in the field.
               </p>
               <p>
-                Whether you're a fellow security enthusiast, a curious learner, or just stumbled 
+                Whether you&apos;re a fellow security enthusiast, a curious learner, or just stumbled 
                 upon this site, I hope you find something valuable here. Feel free to reach out 
-                if you'd like to connect or collaborate!
+                if you&apos;d like to connect or collaborate!
               </p>
             </section>
 
