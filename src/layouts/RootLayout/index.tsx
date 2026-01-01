@@ -7,6 +7,7 @@ import { SchemeType } from "src/types"
 import { getCookie, setCookie } from "cookies-next"
 import Scripts from "./Scripts"
 import useGtagEffect from "./useGtagEffect"
+import InteractiveBackground from "src/components/InteractiveBackground"
 
 type Props = {
   children: React.ReactNode
@@ -36,6 +37,7 @@ export const RootLayout = ({ children }: Props) => {
   return (
     <ThemeProvider scheme={scheme}>
       <Scripts />
+      <InteractiveBackground />
       <StyledWrapper>
         <Header scheme={scheme} toggleScheme={toggleScheme} />
         <main className="main-content">
@@ -50,6 +52,8 @@ const StyledWrapper = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 1;
 
   .main-content {
     flex: 1;
