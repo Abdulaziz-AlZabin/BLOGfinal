@@ -51,44 +51,10 @@ const StyledWrapper = styled.div`
     margin-bottom: 1.5rem;
 
     .avatar-ring {
-      width: 128px;
-      height: 128px;
-      padding: 4px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
-      background: linear-gradient(
-        135deg,
-        ${({ theme }) => theme.colors.primary},
-        ${({ theme }) => theme.colors.secondary},
-        ${({ theme }) => theme.colors.accent}
-      );
-      animation: ring-rotate 4s linear infinite;
-
-      @keyframes ring-rotate {
-        from {
-          background: linear-gradient(
-            135deg,
-            ${({ theme }) => theme.colors.primary},
-            ${({ theme }) => theme.colors.secondary},
-            ${({ theme }) => theme.colors.accent}
-          );
-        }
-        50% {
-          background: linear-gradient(
-            225deg,
-            ${({ theme }) => theme.colors.secondary},
-            ${({ theme }) => theme.colors.accent},
-            ${({ theme }) => theme.colors.primary}
-          );
-        }
-        to {
-          background: linear-gradient(
-            135deg,
-            ${({ theme }) => theme.colors.primary},
-            ${({ theme }) => theme.colors.secondary},
-            ${({ theme }) => theme.colors.accent}
-          );
-        }
-      }
+      overflow: hidden;
 
       .avatar {
         border-radius: 50%;
