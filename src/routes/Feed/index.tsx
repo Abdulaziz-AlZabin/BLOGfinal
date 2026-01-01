@@ -5,7 +5,7 @@ import PostCard from "./PostList/PostCard"
 import Footer from "./Footer"
 import ProfileCard from "./ProfileCard"
 import TagList from "./TagList"
-import usePosts from "src/hooks/usePosts"
+import usePostsQuery from "src/hooks/usePostsQuery"
 import { CONFIG } from "site.config"
 
 type ViewMode = "grid" | "list"
