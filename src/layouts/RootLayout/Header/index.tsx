@@ -116,9 +116,6 @@ const StyledHeader = styled.header`
       height: 40px;
       border-radius: 50%;
       overflow: hidden;
-      border: 2px solid ${({ theme }) => theme.colors.primary};
-      padding: 2px;
-      background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary}, ${({ theme }) => theme.colors.secondary});
 
       .avatar {
         border-radius: 50%;
