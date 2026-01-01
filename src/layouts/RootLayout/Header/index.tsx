@@ -3,7 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { CONFIG } from "site.config"
 import { SchemeType } from "src/types"
-import { FiSun, FiMoon, FiGithub, FiLinkedin, FiMail } from "react-icons/fi"
+import { FiSun, FiMoon, FiGithub, FiLinkedin, FiMail, FiUser } from "react-icons/fi"
 
 type Props = {
   scheme: SchemeType
@@ -28,6 +28,11 @@ export const Header = ({ scheme, toggleScheme }: Props) => {
         </Link>
 
         <nav className="nav-actions">
+          <Link href="/about" className="nav-link">
+            <FiUser />
+            <span>About</span>
+          </Link>
+
           <div className="social-links">
             {CONFIG.profile.github && (
               <a
@@ -136,10 +141,42 @@ const StyledHeader = styled.header`
     gap: 1rem;
   }
 
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors.gray11};
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.primary};
+      background: ${({ theme }) => theme.colors.gray3};
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    span {
+      @media (max-width: 640px) {
+        display: none;
+      }
+    }
+  }
+
   .social-links {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+
+    @media (max-width: 640px) {
+      display: none;
+    }
 
     .social-link {
       display: flex;
