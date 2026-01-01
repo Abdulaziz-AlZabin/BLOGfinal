@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://abdulazizalzabin.com
+
+# Sitemaps
+Sitemap: https://abdulazizalzabin.com/sitemap.xml
