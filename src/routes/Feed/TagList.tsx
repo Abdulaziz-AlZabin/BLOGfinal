@@ -1,51 +1,38 @@
 import styled from "@emotion/styled"
-import { useRouter } from "next/router"
-import React from "react"
-import { Emoji } from "src/components/Emoji"
-import { useTagsQuery } from "src/hooks/useTagsQuery"
+import { FiX } from "react-icons/fi"
 
-type Props = {}
+type Props = {
+  tags: Record<string, number>
+  selectedTag: string | null
+  onSelectTag: (tag: string | null) => void
+}
 
-const TagList: React.FC<Props> = () => {
-  const router = useRouter()
-  const currentTag = router.query.tag || undefined
-  const data = useTagsQuery()
+const TagList: React.FC<Props> = ({ tags, selectedTag, onSelectTag }) => {
+  const sortedTags = Object.entries(tags).sort((a, b) => b[1] - a[1])
 
-  const handleClickTag = (value: any) => {
-    // delete
-    if (currentTag === value) {
-      router.push({
-        query: {
-          ...router.query,
-          tag: undefined,
-        },
-      })
-    }
-    // add
-    else {
-      router.push({
-        query: {
-          ...router.query,
-          tag: value,
-        },
-      })
-    }
-  }
+  if (sortedTags.length === 0) return null
 
   return (
     <StyledWrapper>
-      <div className="top">
-        <Emoji>🏷️</Emoji> Tags
-      </div>
-      <div className="list">
-        {Object.keys(data).map((key) => (
-          <a
-            key={key}
-            data-active={key === currentTag}
-            onClick={() => handleClickTag(key)}
+      <div className="tags-scroll">
+        {selectedTag && (
+          <button
+            className="tag clear-tag"
+            onClick={() => onSelectTag(null)}
           >
-            {key}
-          </a>
+            <FiX />
+            Clear
+          </button>
+        )}
+        {sortedTags.map(([tag, count]) => (
+          <button
+            key={tag}
+            className={`tag ${selectedTag === tag ? "active" : ""}`}
+            onClick={() => onSelectTag(selectedTag === tag ? null : tag)}
+          >
+            <span className="tag-name">{tag}</span>
+            <span className="tag-count">{count}</span>
+          </button>
         ))}
       </div>
     </StyledWrapper>
@@ -55,58 +42,71 @@ const TagList: React.FC<Props> = () => {
 export default TagList
 
 const StyledWrapper = styled.div`
-  .top {
-    display: none;
-    padding: 0.25rem;
-    margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 
-    @media (min-width: 1024px) {
-      display: block;
+  .tags-scroll {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 
-  .list {
-    display: flex;
-    margin-bottom: 1.5rem;
-    gap: 0.25rem;
-    overflow: scroll;
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background: ${({ theme }) => theme.colors.gray3};
+    color: ${({ theme }) => theme.colors.gray11};
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
 
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    ::-webkit-scrollbar {
-      width: 0;
-      height: 0;
+    &:hover {
+      background: ${({ theme }) => theme.colors.gray4};
     }
 
-    @media (min-width: 1024px) {
-      display: block;
+    &.active {
+      background: ${({ theme }) => theme.colors.primary};
+      color: white;
+      border-color: ${({ theme }) => theme.colors.primary};
     }
 
-    a {
-      display: block;
-      padding: 0.25rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
-      margin-top: 0.25rem;
-      margin-bottom: 0.25rem;
-      border-radius: 0.75rem;
-      font-size: 0.875rem;
-      line-height: 1.25rem;
+    &.clear-tag {
+      background: ${({ theme }) => theme.colors.error}15;
+      color: ${({ theme }) => theme.colors.error};
+      border-color: ${({ theme }) => theme.colors.error}30;
+
+      &:hover {
+        background: ${({ theme }) => theme.colors.error}25;
+      }
+
+      svg {
+        width: 14px;
+        height: 14px;
+      }
+    }
+
+    .tag-count {
+      padding: 0.125rem 0.5rem;
+      border-radius: 9999px;
+      background: ${({ theme }) => theme.colors.gray5};
+      font-size: 0.75rem;
       color: ${({ theme }) => theme.colors.gray10};
-      flex-shrink: 0;
-      cursor: pointer;
+    }
 
-      :hover {
-        background-color: ${({ theme }) => theme.colors.gray4};
-      }
-      &[data-active="true"] {
-        color: ${({ theme }) => theme.colors.gray12};
-        background-color: ${({ theme }) => theme.colors.gray4};
-
-        :hover {
-          background-color: ${({ theme }) => theme.colors.gray4};
-        }
-      }
+    &.active .tag-count {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
     }
   }
 `

@@ -1,25 +1,35 @@
 import styled from "@emotion/styled"
 import Image from "next/image"
-import React from "react"
 import { CONFIG } from "site.config"
-import { Emoji } from "src/components/Emoji"
+import { FiMapPin, FiCalendar } from "react-icons/fi"
 
-type Props = {}
-
-const ProfileCard: React.FC<Props> = () => {
+const ProfileCard: React.FC = () => {
   return (
     <StyledWrapper>
-      <div className="title">
-        <Emoji>💻</Emoji> Profile
-      </div>
-      <div className="content">
-        <div className="top">
-          <Image src={CONFIG.profile.image} fill alt="" />
+      <div className="avatar-container">
+        <div className="avatar-ring">
+          <Image
+            src={CONFIG.profile.image}
+            alt={CONFIG.profile.name}
+            width={120}
+            height={120}
+            className="avatar"
+            priority
+          />
         </div>
-        <div className="mid">
-          <div className=" name">{CONFIG.profile.name}</div>
-          <div className="role">{CONFIG.profile.role}</div>
-          <div className="text-sm mb-2">{CONFIG.profile.bio}</div>
+        <div className="status-badge" />
+      </div>
+
+      <div className="profile-info">
+        <h1 className="name">{CONFIG.profile.name}</h1>
+        <p className="role">{CONFIG.profile.role}</p>
+        <p className="bio">{CONFIG.profile.bio}</p>
+
+        <div className="meta">
+          <span className="meta-item">
+            <FiCalendar />
+            Since {CONFIG.since}
+          </span>
         </div>
       </div>
     </StyledWrapper>
@@ -29,52 +39,128 @@ const ProfileCard: React.FC<Props> = () => {
 export default ProfileCard
 
 const StyledWrapper = styled.div`
-  > .title {
-    padding: 0.25rem;
-    margin-bottom: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+
+  .avatar-container {
+    position: relative;
+    margin-bottom: 1.5rem;
+
+    .avatar-ring {
+      width: 128px;
+      height: 128px;
+      padding: 4px;
+      border-radius: 50%;
+      background: linear-gradient(
+        135deg,
+        ${({ theme }) => theme.colors.primary},
+        ${({ theme }) => theme.colors.secondary},
+        ${({ theme }) => theme.colors.accent}
+      );
+      animation: ring-rotate 4s linear infinite;
+
+      @keyframes ring-rotate {
+        from {
+          background: linear-gradient(
+            135deg,
+            ${({ theme }) => theme.colors.primary},
+            ${({ theme }) => theme.colors.secondary},
+            ${({ theme }) => theme.colors.accent}
+          );
+        }
+        50% {
+          background: linear-gradient(
+            225deg,
+            ${({ theme }) => theme.colors.secondary},
+            ${({ theme }) => theme.colors.accent},
+            ${({ theme }) => theme.colors.primary}
+          );
+        }
+        to {
+          background: linear-gradient(
+            135deg,
+            ${({ theme }) => theme.colors.primary},
+            ${({ theme }) => theme.colors.secondary},
+            ${({ theme }) => theme.colors.accent}
+          );
+        }
+      }
+
+      .avatar {
+        border-radius: 50%;
+        object-fit: cover;
+        background: ${({ theme }) => theme.colors.gray1};
+      }
+    }
+
+    .status-badge {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: ${({ theme }) => theme.colors.success};
+      border: 3px solid ${({ theme }) => theme.colors.gray1};
+    }
   }
-  > .content {
-    margin-bottom: 2.25rem;
-    border-radius: 1rem;
-    width: 100%;
-    background-color: ${({ theme }) =>
-      theme.scheme === "light" ? "white" : theme.colors.gray4};
-    @media (min-width: 768px) {
-      padding: 1rem;
-    }
-    @media (min-width: 1024px) {
-      padding: 1rem;
-    }
-    .top {
-      position: relative;
-      width: 100%;
-      &:after {
-        content: "";
-        display: block;
-        padding-bottom: 100%;
+
+  .profile-info {
+    .name {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(
+        135deg,
+        ${({ theme }) => theme.colors.gray12} 0%,
+        ${({ theme }) => theme.colors.gray10} 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+
+      @media (max-width: 640px) {
+        font-size: 1.75rem;
       }
     }
-    .mid {
+
+    .role {
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: ${({ theme }) => theme.colors.primary};
+      margin-bottom: 1rem;
+    }
+
+    .bio {
+      font-size: 1rem;
+      color: ${({ theme }) => theme.colors.gray10};
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      max-width: 450px;
+    }
+
+    .meta {
       display: flex;
-      padding: 0.5rem;
-      flex-direction: column;
       align-items: center;
-      .name {
-        font-size: 1.25rem;
-        line-height: 1.75rem;
-        font-style: italic;
-        font-weight: 700;
-      }
-      .role {
-        margin-bottom: 1rem;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+
+      .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
         font-size: 0.875rem;
-        line-height: 1.25rem;
-        color: ${({ theme }) => theme.colors.gray11};
-      }
-      .bio {
-        margin-bottom: 0.5rem;
-        font-size: 0.875rem;
-        line-height: 1.25rem;
+        color: ${({ theme }) => theme.colors.gray9};
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
       }
     }
   }

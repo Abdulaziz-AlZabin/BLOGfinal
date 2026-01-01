@@ -1,60 +1,107 @@
 import { useState } from "react"
-
-import SearchInput from "./SearchInput"
-import { FeedHeader } from "./FeedHeader"
-import Footer from "./Footer"
 import styled from "@emotion/styled"
-import TagList from "./TagList"
-import MobileProfileCard from "./MobileProfileCard"
+import { FiSearch, FiGrid, FiList } from "react-icons/fi"
+import PostCard from "./PostList/PostCard"
+import Footer from "./Footer"
 import ProfileCard from "./ProfileCard"
-import ServiceCard from "./ServiceCard"
-import ContactCard from "./ContactCard"
-import PostList from "./PostList"
-import PinnedPosts from "./PostList/PinnedPosts"
+import TagList from "./TagList"
+import usePosts from "src/hooks/usePosts"
+import { CONFIG } from "site.config"
 
-const HEADER_HEIGHT = 73
+type ViewMode = "grid" | "list"
 
-type Props = {}
+const Feed: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState("")
+  const [selectedTag, setSelectedTag] = useState<string | null>(null)
+  const [viewMode, setViewMode] = useState<ViewMode>("grid")
+  const posts = usePosts()
 
-const Feed: React.FC<Props> = () => {
-  const [q, setQ] = useState("")
+  const filteredPosts = posts.filter((post) => {
+    const matchesSearch =
+      post.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.summary?.toLowerCase().includes(searchQuery.toLowerCase())
+    const matchesTag = !selectedTag || post.tags?.includes(selectedTag)
+    return matchesSearch && matchesTag
+  })
+
+  const allTags = posts.reduce((acc, post) => {
+    post.tags?.forEach((tag) => {
+      acc[tag] = (acc[tag] || 0) + 1
+    })
+    return acc
+  }, {} as Record<string, number>)
 
   return (
     <StyledWrapper>
-      <div
-        className="lt"
-        css={{
-          height: `calc(100vh - ${HEADER_HEIGHT}px)`,
-        }}
-      >
-        <TagList />
-      </div>
-      <div className="mid">
-        <MobileProfileCard />
-        <PinnedPosts q={q} />
-        <SearchInput value={q} onChange={(e) => setQ(e.target.value)} />
-        <div className="tags">
-          <TagList />
+      {/* Hero Section */}
+      <section className="hero">
+        <div className="hero-content">
+          <ProfileCard />
         </div>
-        <FeedHeader />
-        <PostList q={q} />
-        <div className="footer">
-          <Footer />
+        <div className="hero-gradient" />
+      </section>
+
+      {/* Main Content */}
+      <section className="content-section">
+        {/* Search and Filter Bar */}
+        <div className="toolbar">
+          <div className="search-wrapper">
+            <FiSearch className="search-icon" />
+            <input
+              type="text"
+              placeholder="Search posts..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="search-input"
+            />
+          </div>
+
+          <div className="view-toggle">
+            <button
+              onClick={() => setViewMode("grid")}
+              className={viewMode === "grid" ? "active" : ""}
+              aria-label="Grid view"
+            >
+              <FiGrid />
+            </button>
+            <button
+              onClick={() => setViewMode("list")}
+              className={viewMode === "list" ? "active" : ""}
+              aria-label="List view"
+            >
+              <FiList />
+            </button>
+          </div>
         </div>
-      </div>
-      <div
-        className="rt"
-        css={{
-          height: `calc(100vh - ${HEADER_HEIGHT}px)`,
-        }}
-      >
-        <ProfileCard />
-        <ServiceCard />
-        <ContactCard />
-        <div className="footer">
-          <Footer />
+
+        {/* Tags */}
+        <TagList
+          tags={allTags}
+          selectedTag={selectedTag}
+          onSelectTag={setSelectedTag}
+        />
+
+        {/* Posts Grid/List */}
+        <div className="posts-header">
+          <h2>Latest Posts</h2>
+          <span className="post-count">{filteredPosts.length} posts</span>
         </div>
-      </div>
+
+        <div className={`posts-container ${viewMode}`}>
+          {filteredPosts.length > 0 ? (
+            filteredPosts.map((post) => (
+              <PostCard key={post.id} data={post} viewMode={viewMode} />
+            ))
+          ) : (
+            <div className="no-posts">
+              <p>No posts found</p>
+              <span>Try adjusting your search or filters</span>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <Footer />
     </StyledWrapper>
   )
 }
@@ -62,77 +109,182 @@ const Feed: React.FC<Props> = () => {
 export default Feed
 
 const StyledWrapper = styled.div`
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  .hero {
+    position: relative;
+    padding: 4rem 0 3rem;
+    margin-bottom: 2rem;
 
-  padding: 2rem 0;
-  display: grid;
-  gap: 1.5rem;
+    @media (max-width: 768px) {
+      padding: 2rem 0 1.5rem;
+    }
 
-  @media (max-width: 768px) {
-    display: block;
-    padding: 0.5rem 0;
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-gradient {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 800px;
+      height: 300px;
+      background: radial-gradient(
+        ellipse at center,
+        ${({ theme }) => theme.colors.primary}15 0%,
+        transparent 70%
+      );
+      pointer-events: none;
+    }
   }
 
-  > .lt {
-    display: none;
-    overflow: scroll;
-    position: sticky;
-    grid-column: span 2 / span 2;
-    top: ${HEADER_HEIGHT - 10}px;
+  .content-section {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 
-    @media (min-width: 1024px) {
-      display: block;
+    @media (max-width: 640px) {
+      flex-direction: column;
+      align-items: stretch;
     }
   }
 
-  > .mid {
-    grid-column: span 12 / span 12;
+  .search-wrapper {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
 
-    @media (min-width: 1024px) {
-      grid-column: span 7 / span 7;
+    @media (max-width: 640px) {
+      max-width: 100%;
     }
 
-    > .tags {
-      display: block;
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: ${({ theme }) => theme.colors.gray8};
+      width: 18px;
+      height: 18px;
+    }
 
-      @media (min-width: 1024px) {
-        display: none;
+    .search-input {
+      width: 100%;
+      padding: 0.875rem 1rem 0.875rem 2.75rem;
+      border: 1px solid ${({ theme }) => theme.colors.gray4};
+      border-radius: 12px;
+      background: ${({ theme }) => theme.colors.gray2};
+      color: ${({ theme }) => theme.colors.gray12};
+      font-size: 0.9375rem;
+      transition: all 0.2s ease;
+
+      &::placeholder {
+        color: ${({ theme }) => theme.colors.gray8};
+      }
+
+      &:focus {
+        outline: none;
+        border-color: ${({ theme }) => theme.colors.primary};
+        background: ${({ theme }) => theme.colors.gray1};
+        box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.primary}20;
+      }
+    }
+  }
+
+  .view-toggle {
+    display: flex;
+    background: ${({ theme }) => theme.colors.gray3};
+    border-radius: 10px;
+    padding: 4px;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 36px;
+      border-radius: 8px;
+      color: ${({ theme }) => theme.colors.gray8};
+      transition: all 0.2s ease;
+
+      &.active {
+        background: ${({ theme }) => theme.colors.gray1};
+        color: ${({ theme }) => theme.colors.primary};
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      &:not(.active):hover {
+        color: ${({ theme }) => theme.colors.gray11};
+      }
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  .posts-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin: 2rem 0 1.5rem;
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: ${({ theme }) => theme.colors.gray12};
+    }
+
+    .post-count {
+      font-size: 0.875rem;
+      color: ${({ theme }) => theme.colors.gray9};
+    }
+  }
+
+  .posts-container {
+    &.grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
       }
     }
 
-    > .footer {
-      padding-bottom: 2rem;
-      @media (min-width: 1024px) {
-        display: none;
-      }
+    &.list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
   }
 
-  > .rt {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar {
-      display: none;
+  .no-posts {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: ${({ theme }) => theme.colors.gray2};
+    border-radius: 16px;
+
+    p {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: ${({ theme }) => theme.colors.gray11};
+      margin-bottom: 0.5rem;
     }
 
-    display: none;
-    overflow: scroll;
-    position: sticky;
-    top: ${HEADER_HEIGHT - 10}px;
-
-    @media (min-width: 1024px) {
-      display: block;
-      grid-column: span 3 / span 3;
-    }
-
-    .footer {
-      padding-top: 1rem;
+    span {
+      color: ${({ theme }) => theme.colors.gray9};
     }
   }
 `
