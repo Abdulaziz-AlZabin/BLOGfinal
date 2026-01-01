@@ -14,7 +14,7 @@ const Feed: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
   const [viewMode, setViewMode] = useState<ViewMode>("grid")
-  const posts = usePosts()
+  const posts = usePostsQuery()
 
   const filteredPosts = posts.filter((post) => {
     const matchesSearch =
