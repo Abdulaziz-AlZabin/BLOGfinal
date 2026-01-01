@@ -21,8 +21,14 @@ export const getStaticPaths = async () => {
   const posts = await getPosts()
   const filteredPost = filterPosts(posts, filter)
 
+  // Exclude reserved paths like 'about'
+  const reservedPaths = ['about']
+  const paths = filteredPost
+    .filter((row) => !reservedPaths.includes(row.slug))
+    .map((row) => `/${row.slug}`)
+
   return {
-    paths: filteredPost.map((row) => `/${row.slug}`),
+    paths,
     fallback: true,
   }
 }
