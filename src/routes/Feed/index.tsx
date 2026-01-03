@@ -236,7 +236,7 @@ const StyledWrapper = styled.div`
         background: ${({ theme }) => theme.colors.gray1};
         box-shadow: ${({ theme }) => 
           theme.scheme === "dark" 
-            ? `0 0 0 3px ${theme.colors.neonGlow}, 0 0 20px ${theme.colors.neonGlow}`
+            ? `0 0 0 3px ${theme.colors.neonGlow}, 0 0 12px ${theme.colors.neonGlow}`
             : `0 0 0 3px ${theme.colors.primary}20`};
       }
     }
