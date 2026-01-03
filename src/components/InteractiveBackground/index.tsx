@@ -34,22 +34,22 @@ const InteractiveBackground: React.FC = () => {
     resizeCanvas()
     window.addEventListener("resize", resizeCanvas)
 
-    // Tech colors for particles
+    // Tech colors for particles - reduced opacity
     const techColors = [
       theme.colors.neon || "#00ff41",
       theme.colors.cyber || "#00d9ff",
       theme.colors.purple || "#b744ff",
     ]
 
-    // Initialize particles
-    const particleCount = 60
+    // Fewer particles, smaller size
+    const particleCount = 40
     particlesRef.current = Array.from({ length: particleCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      size: Math.random() * 3 + 1,
+      size: Math.random() * 2 + 0.5,
       speedX: (Math.random() - 0.5) * 0.3,
       speedY: (Math.random() - 0.5) * 0.3,
-      opacity: Math.random() * 0.4 + 0.1,
+      opacity: Math.random() * 0.2 + 0.05,
       color: techColors[Math.floor(Math.random() * techColors.length)],
     }))
 
@@ -59,12 +59,12 @@ const InteractiveBackground: React.FC = () => {
 
     window.addEventListener("mousemove", handleMouseMove)
 
-    // Draw grid
+    // Draw grid with lower opacity
     const drawGrid = () => {
       if (!ctx || !canvas) return
 
       const gridSize = 50
-      ctx.strokeStyle = theme.colors.gray4 || "rgba(255, 255, 255, 0.03)"
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.02)"
       ctx.lineWidth = 1
 
       // Vertical lines
@@ -87,13 +87,13 @@ const InteractiveBackground: React.FC = () => {
     const animate = () => {
       if (!ctx || !canvas) return
 
-      // Clear with slight fade for trail effect
+      // Clear with higher fade for less trail
       ctx.fillStyle = theme.scheme === "dark" 
-        ? "rgba(10, 10, 11, 0.1)"
-        : "rgba(252, 252, 252, 0.1)"
+        ? "rgba(10, 10, 11, 0.15)"
+        : "rgba(252, 252, 252, 0.15)"
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      // Draw grid
+      // Draw grid in dark mode only
       if (theme.scheme === "dark") {
         drawGrid()
       }
@@ -103,13 +103,13 @@ const InteractiveBackground: React.FC = () => {
         const dx = mouseRef.current.x - particle.x
         const dy = mouseRef.current.y - particle.y
         const distance = Math.sqrt(dx * dx + dy * dy)
-        const maxDistance = 200
+        const maxDistance = 150
 
-        // Mouse interaction
+        // Reduced mouse interaction
         if (distance < maxDistance) {
           const force = (maxDistance - distance) / maxDistance
-          particle.x -= (dx / distance) * force * 3
-          particle.y -= (dy / distance) * force * 3
+          particle.x -= (dx / distance) * force * 2
+          particle.y -= (dy / distance) * force * 2
         }
 
         // Update position
@@ -122,58 +122,62 @@ const InteractiveBackground: React.FC = () => {
         if (particle.y < 0) particle.y = canvas.height
         if (particle.y > canvas.height) particle.y = 0
 
-        // Draw particle with glow
+        // Draw particle with minimal glow
         const gradient = ctx.createRadialGradient(
           particle.x,
           particle.y,
           0,
           particle.x,
           particle.y,
-          particle.size * 3
+          particle.size * 2
         )
         gradient.addColorStop(0, particle.color)
         gradient.addColorStop(1, "transparent")
 
         ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.size * 3, 0, Math.PI * 2)
+        ctx.arc(particle.x, particle.y, particle.size * 2, 0, Math.PI * 2)
         ctx.fillStyle = gradient
+        ctx.globalAlpha = particle.opacity * 0.5
         ctx.fill()
+        ctx.globalAlpha = 1
 
         // Draw core particle
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
         ctx.fillStyle = particle.color
+        ctx.globalAlpha = particle.opacity
         ctx.fill()
+        ctx.globalAlpha = 1
 
-        // Draw connections between nearby particles
+        // Draw connections with lower opacity
         particlesRef.current.slice(index + 1).forEach((otherParticle) => {
           const dx2 = particle.x - otherParticle.x
           const dy2 = particle.y - otherParticle.y
           const distance2 = Math.sqrt(dx2 * dx2 + dy2 * dy2)
 
-          if (distance2 < 120) {
+          if (distance2 < 100) {
             ctx.beginPath()
             ctx.moveTo(particle.x, particle.y)
             ctx.lineTo(otherParticle.x, otherParticle.y)
-            const opacity = 0.15 * (1 - distance2 / 120)
+            const opacity = 0.08 * (1 - distance2 / 100)
             ctx.strokeStyle = `${particle.color}${Math.floor(opacity * 255).toString(16).padStart(2, '0')}`
-            ctx.lineWidth = 1
+            ctx.lineWidth = 0.5
             ctx.stroke()
           }
         })
       })
 
-      // Draw mouse glow effect
+      // Minimal mouse glow
       const gradient = ctx.createRadialGradient(
         mouseRef.current.x,
         mouseRef.current.y,
         0,
         mouseRef.current.x,
         mouseRef.current.y,
-        180
+        120
       )
-      gradient.addColorStop(0, theme.colors.neonGlow || "rgba(0, 255, 65, 0.15)")
-      gradient.addColorStop(0.5, theme.colors.cyberGlow || "rgba(0, 217, 255, 0.08)")
+      gradient.addColorStop(0, "rgba(0, 255, 65, 0.05)")
+      gradient.addColorStop(0.5, "rgba(0, 217, 255, 0.03)")
       gradient.addColorStop(1, "transparent")
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -205,5 +209,5 @@ const StyledCanvas = styled.canvas`
   height: 100%;
   pointer-events: none;
   z-index: 0;
-  opacity: ${({ theme }) => theme.scheme === "dark" ? "1" : "0.3"};
+  opacity: ${({ theme }) => theme.scheme === "dark" ? "0.6" : "0.2"};
 `
