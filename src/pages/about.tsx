@@ -74,6 +74,26 @@ const AboutPage = () => {
           </div>
 
           <div className="content-section">
+            <TerminalTyping 
+              lines={[
+                "whoami",
+                `${CONFIG.profile.name} - ${CONFIG.profile.role}`,
+                "",
+                "cat about.txt",
+                CONFIG.profile.bio,
+                "",
+                "ls -l interests/",
+                "- Cybersecurity Research",
+                "- Threat Intelligence",
+                "- Security Operations",
+                "- CTF Competitions",
+                "",
+                "echo 'Always learning, always curious'",
+              ]}
+              typingSpeed={40}
+              lineDelay={300}
+            />
+
             <section className="about-section">
               <h2>About Me</h2>
               <p>{CONFIG.profile.bio}</p>
@@ -87,32 +107,6 @@ const AboutPage = () => {
                 upon this site, I hope you find something valuable here. Feel free to reach out 
                 if you&apos;d like to connect or collaborate!
               </p>
-            </section>
-
-            <section className="about-section">
-              <h2>What I Do</h2>
-              <div className="skills-grid">
-                <div className="skill-card">
-                  <div className="skill-icon">🔒</div>
-                  <h3>Security Research</h3>
-                  <p>Exploring vulnerabilities, analyzing malware, and understanding attack vectors.</p>
-                </div>
-                <div className="skill-card">
-                  <div className="skill-icon">🛡️</div>
-                  <h3>Threat Intelligence</h3>
-                  <p>Gathering and analyzing data to identify and mitigate potential threats.</p>
-                </div>
-                <div className="skill-card">
-                  <div className="skill-icon">💻</div>
-                  <h3>Security Operations</h3>
-                  <p>Building and maintaining secure systems and incident response procedures.</p>
-                </div>
-                <div className="skill-card">
-                  <div className="skill-icon">📝</div>
-                  <h3>Technical Writing</h3>
-                  <p>Sharing knowledge through detailed blog posts and documentation.</p>
-                </div>
-              </div>
             </section>
 
             {CONFIG.projects && CONFIG.projects.length > 0 && (
