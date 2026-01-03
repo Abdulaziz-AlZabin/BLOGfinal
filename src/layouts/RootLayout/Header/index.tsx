@@ -117,23 +117,10 @@ const StyledHeader = styled.header`
     gap: 0.875rem;
     font-weight: 600;
     font-size: 1.125rem;
-    transition: all 0.3s ease;
-    position: relative;
+    transition: opacity 0.2s ease;
 
     &:hover {
-      .avatar-glow {
-        opacity: 0.6;
-        transform: scale(1.1);
-      }
-
-      .terminal-icon {
-        color: ${({ theme }) => theme.colors.primary};
-        transform: rotate(10deg);
-      }
-
-      .site-name {
-        color: ${({ theme }) => theme.colors.primary};
-      }
+      opacity: 0.8;
     }
 
     .avatar-wrapper {
@@ -141,52 +128,18 @@ const StyledHeader = styled.header`
       width: 40px;
       height: 40px;
 
-      .avatar-glow {
-        position: absolute;
-        inset: -3px;
-        border-radius: 50%;
-        background: ${({ theme }) => 
-          theme.scheme === "dark"
-            ? `linear-gradient(135deg, ${theme.colors.neon}, ${theme.colors.cyber})`
-            : theme.colors.primary};
-        opacity: 0;
-        transition: all 0.3s ease;
-        filter: blur(6px);
-        z-index: 0;
-      }
-
       .avatar {
-        position: relative;
         border-radius: 50%;
         object-fit: cover;
-        border: 2px solid ${({ theme }) => 
-          theme.scheme === "dark" 
-            ? theme.colors.neon
-            : theme.colors.gray4};
-        z-index: 1;
+        border: 2px solid ${({ theme }) => theme.colors.gray4};
       }
     }
 
-    .logo-text {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    .site-name {
+      letter-spacing: -0.01em;
 
       @media (max-width: 480px) {
         display: none;
-      }
-
-      .terminal-icon {
-        width: 18px;
-        height: 18px;
-        color: ${({ theme }) => theme.colors.gray9};
-        transition: all 0.3s ease;
-      }
-
-      .site-name {
-        font-family: 'Courier New', monospace;
-        letter-spacing: 0.05em;
-        transition: all 0.3s ease;
       }
     }
   }
