@@ -119,14 +119,14 @@ const StyledWrapper = styled.div`
 
     .avatar-glow {
       position: absolute;
-      inset: -10px;
+      inset: -8px;
       border-radius: 50%;
       background: ${({ theme }) => 
         theme.scheme === "dark"
           ? `linear-gradient(135deg, ${theme.colors.neon}, ${theme.colors.cyber}, ${theme.colors.purple})`
           : theme.colors.primary};
-      opacity: ${({ theme }) => theme.scheme === "dark" ? "0.4" : "0.2"};
-      filter: blur(20px);
+      opacity: ${({ theme }) => theme.scheme === "dark" ? "0.2" : "0.15"};
+      filter: blur(12px);
       animation: pulse 3s ease-in-out infinite;
     }
 
