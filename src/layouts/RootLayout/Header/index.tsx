@@ -16,7 +16,6 @@ export const Header = ({ scheme, toggleScheme }: Props) => {
       <div className="header-inner">
         <Link href="/" className="logo">
           <div className="avatar-wrapper">
-            <div className="avatar-glow" />
             <Image
               src={CONFIG.profile.image}
               alt="Logo"
@@ -25,10 +24,7 @@ export const Header = ({ scheme, toggleScheme }: Props) => {
               className="avatar"
             />
           </div>
-          <div className="logo-text">
-            <FiTerminal className="terminal-icon" />
-            <span className="site-name">{CONFIG.blog.title}</span>
-          </div>
+          <span className="site-name">{CONFIG.blog.title}</span>
         </Link>
 
         <nav className="nav-actions">
