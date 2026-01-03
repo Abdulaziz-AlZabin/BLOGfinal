@@ -134,7 +134,7 @@ const StyledWrapper = styled.div`
       transform: translateY(-2px);
       box-shadow: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? `0 4px 15px ${theme.colors.neonGlow}`
+          ? `0 4px 10px ${theme.colors.neonGlow}`
           : "0 4px 12px rgba(0, 0, 0, 0.1)"};
 
       &::before {
