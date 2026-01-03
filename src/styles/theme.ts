@@ -13,29 +13,29 @@ export const lightColors = {
   gray10: "#505050",
   gray11: "#303030",
   gray12: "#101010",
-  // Accent colors
-  primary: "#6366f1",
-  primaryHover: "#4f46e5",
-  secondary: "#ec4899",
+  // Professional accent colors
+  primary: "#3b82f6",
+  primaryHover: "#2563eb",
+  secondary: "#8b5cf6",
   accent: "#06b6d4",
-  success: "#22c55e",
+  success: "#10b981",
   warning: "#f59e0b",
   error: "#ef4444",
-  // Tech colors
-  neon: "#00ff41",
-  neonGlow: "rgba(0, 255, 65, 0.15)",
-  cyber: "#00d9ff",
-  cyberGlow: "rgba(0, 217, 255, 0.15)",
-  purple: "#b744ff",
-  purpleGlow: "rgba(183, 68, 255, 0.15)",
+  // Muted tech colors
+  neon: "#10b981",
+  neonGlow: "rgba(16, 185, 129, 0.08)",
+  cyber: "#3b82f6",
+  cyberGlow: "rgba(59, 130, 246, 0.08)",
+  purple: "#8b5cf6",
+  purpleGlow: "rgba(139, 92, 246, 0.08)",
 }
 
 export const darkColors = {
   gray1: "#0a0a0b",
-  gray2: "#0f0f12",
+  gray2: "#111113",
   gray3: "#18181b",
-  gray4: "#1f1f24",
-  gray5: "#27272e",
+  gray4: "#1f1f23",
+  gray5: "#27272a",
   gray6: "#3f3f46",
   gray7: "#52525b",
   gray8: "#71717a",
@@ -43,24 +43,24 @@ export const darkColors = {
   gray10: "#d4d4d8",
   gray11: "#e4e4e7",
   gray12: "#fafafa",
-  // Tech accent colors - toned down
-  primary: "#00ff41",
-  primaryHover: "#00cc33",
-  secondary: "#b744ff",
-  accent: "#00d9ff",
-  success: "#4ade80",
-  warning: "#fbbf24",
-  error: "#ff2e63",
-  // Tech colors with reduced glow
-  neon: "#00ff41",
-  neonGlow: "rgba(0, 255, 65, 0.15)",
-  cyber: "#00d9ff",
-  cyberGlow: "rgba(0, 217, 255, 0.12)",
-  purple: "#b744ff",
-  purpleGlow: "rgba(183, 68, 255, 0.12)",
-  // Background gradients
+  // Professional muted colors
+  primary: "#10b981",
+  primaryHover: "#059669",
+  secondary: "#8b5cf6",
+  accent: "#3b82f6",
+  success: "#10b981",
+  warning: "#f59e0b",
+  error: "#ef4444",
+  // Subtle professional accents
+  neon: "#10b981",
+  neonGlow: "rgba(16, 185, 129, 0.08)",
+  cyber: "#3b82f6",
+  cyberGlow: "rgba(59, 130, 246, 0.08)",
+  purple: "#8b5cf6",
+  purpleGlow: "rgba(139, 92, 246, 0.08)",
+  // Background
   bgGradientStart: "#0a0a0b",
-  bgGradientEnd: "#1a0a2e",
+  bgGradientEnd: "#111113",
 }
 
 export type Colors = typeof lightColors

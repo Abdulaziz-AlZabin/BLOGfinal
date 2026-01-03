@@ -2,21 +2,8 @@ import { useEffect, useRef } from "react"
 import styled from "@emotion/styled"
 import { useTheme } from "@emotion/react"
 
-interface Particle {
-  x: number
-  y: number
-  size: number
-  speedX: number
-  speedY: number
-  opacity: number
-  color: string
-}
-
 const InteractiveBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const mouseRef = useRef({ x: 0, y: 0 })
-  const particlesRef = useRef<Particle[]>([])
-  const animationRef = useRef<number>()
   const theme = useTheme() as any
 
   useEffect(() => {
@@ -34,37 +21,12 @@ const InteractiveBackground: React.FC = () => {
     resizeCanvas()
     window.addEventListener("resize", resizeCanvas)
 
-    // Tech colors for particles - reduced opacity
-    const techColors = [
-      theme.colors.neon || "#00ff41",
-      theme.colors.cyber || "#00d9ff",
-      theme.colors.purple || "#b744ff",
-    ]
-
-    // Fewer particles, smaller size
-    const particleCount = 40
-    particlesRef.current = Array.from({ length: particleCount }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 2 + 0.5,
-      speedX: (Math.random() - 0.5) * 0.3,
-      speedY: (Math.random() - 0.5) * 0.3,
-      opacity: Math.random() * 0.2 + 0.05,
-      color: techColors[Math.floor(Math.random() * techColors.length)],
-    }))
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY }
-    }
-
-    window.addEventListener("mousemove", handleMouseMove)
-
-    // Draw grid with lower opacity
+    // Minimal grid-only background for professional look
     const drawGrid = () => {
       if (!ctx || !canvas) return
 
-      const gridSize = 50
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.02)"
+      const gridSize = 60
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.015)"
       ctx.lineWidth = 1
 
       // Vertical lines
@@ -84,115 +46,18 @@ const InteractiveBackground: React.FC = () => {
       }
     }
 
-    const animate = () => {
-      if (!ctx || !canvas) return
+    // Static render - no animations for professional look
+    ctx.fillStyle = theme.scheme === "dark" 
+      ? "rgba(10, 10, 11, 1)"
+      : "rgba(252, 252, 252, 1)"
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      // Clear with higher fade for less trail
-      ctx.fillStyle = theme.scheme === "dark" 
-        ? "rgba(10, 10, 11, 0.15)"
-        : "rgba(252, 252, 252, 0.15)"
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-      // Draw grid in dark mode only
-      if (theme.scheme === "dark") {
-        drawGrid()
-      }
-
-      particlesRef.current.forEach((particle, index) => {
-        // Calculate distance from mouse
-        const dx = mouseRef.current.x - particle.x
-        const dy = mouseRef.current.y - particle.y
-        const distance = Math.sqrt(dx * dx + dy * dy)
-        const maxDistance = 150
-
-        // Reduced mouse interaction
-        if (distance < maxDistance) {
-          const force = (maxDistance - distance) / maxDistance
-          particle.x -= (dx / distance) * force * 2
-          particle.y -= (dy / distance) * force * 2
-        }
-
-        // Update position
-        particle.x += particle.speedX
-        particle.y += particle.speedY
-
-        // Wrap around edges
-        if (particle.x < 0) particle.x = canvas.width
-        if (particle.x > canvas.width) particle.x = 0
-        if (particle.y < 0) particle.y = canvas.height
-        if (particle.y > canvas.height) particle.y = 0
-
-        // Draw particle with minimal glow
-        const gradient = ctx.createRadialGradient(
-          particle.x,
-          particle.y,
-          0,
-          particle.x,
-          particle.y,
-          particle.size * 2
-        )
-        gradient.addColorStop(0, particle.color)
-        gradient.addColorStop(1, "transparent")
-
-        ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.size * 2, 0, Math.PI * 2)
-        ctx.fillStyle = gradient
-        ctx.globalAlpha = particle.opacity * 0.5
-        ctx.fill()
-        ctx.globalAlpha = 1
-
-        // Draw core particle
-        ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-        ctx.fillStyle = particle.color
-        ctx.globalAlpha = particle.opacity
-        ctx.fill()
-        ctx.globalAlpha = 1
-
-        // Draw connections with lower opacity
-        particlesRef.current.slice(index + 1).forEach((otherParticle) => {
-          const dx2 = particle.x - otherParticle.x
-          const dy2 = particle.y - otherParticle.y
-          const distance2 = Math.sqrt(dx2 * dx2 + dy2 * dy2)
-
-          if (distance2 < 100) {
-            ctx.beginPath()
-            ctx.moveTo(particle.x, particle.y)
-            ctx.lineTo(otherParticle.x, otherParticle.y)
-            const opacity = 0.08 * (1 - distance2 / 100)
-            ctx.strokeStyle = `${particle.color}${Math.floor(opacity * 255).toString(16).padStart(2, '0')}`
-            ctx.lineWidth = 0.5
-            ctx.stroke()
-          }
-        })
-      })
-
-      // Minimal mouse glow
-      const gradient = ctx.createRadialGradient(
-        mouseRef.current.x,
-        mouseRef.current.y,
-        0,
-        mouseRef.current.x,
-        mouseRef.current.y,
-        120
-      )
-      gradient.addColorStop(0, "rgba(0, 255, 65, 0.05)")
-      gradient.addColorStop(0.5, "rgba(0, 217, 255, 0.03)")
-      gradient.addColorStop(1, "transparent")
-      ctx.fillStyle = gradient
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-      animationRef.current = requestAnimationFrame(animate)
+    if (theme.scheme === "dark") {
+      drawGrid()
     }
-
-    animate()
 
     return () => {
       window.removeEventListener("resize", resizeCanvas)
-      window.removeEventListener("mousemove", handleMouseMove)
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current)
-      }
     }
   }, [theme])
 
@@ -209,5 +74,5 @@ const StyledCanvas = styled.canvas`
   height: 100%;
   pointer-events: none;
   z-index: 0;
-  opacity: ${({ theme }) => theme.scheme === "dark" ? "0.6" : "0.2"};
+  opacity: ${({ theme }) => theme.scheme === "dark" ? "0.3" : "0.15"};
 `
