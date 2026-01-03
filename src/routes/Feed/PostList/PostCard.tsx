@@ -125,7 +125,7 @@ const StyledWrapper = styled(Link)`
     transform: translateY(-6px);
     box-shadow: ${({ theme }) => 
       theme.scheme === "dark" 
-        ? `0 20px 50px -12px ${theme.colors.neonGlow}, 0 0 30px ${theme.colors.neonGlow}`
+        ? `0 20px 50px -12px ${theme.colors.neonGlow}, 0 0 15px rgba(0, 255, 65, 0.1)`
         : "0 20px 40px -12px rgba(0, 0, 0, 0.15)"};
 
     &::before {
