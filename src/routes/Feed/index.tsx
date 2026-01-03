@@ -332,13 +332,19 @@ const StyledWrapper = styled.div`
     h2 {
       font-size: 1.75rem;
       font-weight: 700;
-      color: ${({ theme }) => theme.colors.gray12};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? "#ffffff" 
+          : theme.colors.gray12};
       letter-spacing: -0.02em;
     }
 
     .post-count {
       font-size: 0.875rem;
-      color: ${({ theme }) => theme.colors.gray9};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.gray10 
+          : theme.colors.gray9};
     }
   }
 
