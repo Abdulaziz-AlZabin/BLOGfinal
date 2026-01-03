@@ -275,7 +275,6 @@ const StyledWrapper = styled(Link)`
         gap: 0.5rem;
         font-size: 0.8125rem;
         color: ${({ theme }) => theme.colors.gray9};
-        font-family: 'Courier New', monospace;
 
         svg {
           width: 14px;
