@@ -21,14 +21,21 @@ export const lightColors = {
   success: "#22c55e",
   warning: "#f59e0b",
   error: "#ef4444",
+  // Tech colors
+  neon: "#00ff41",
+  neonGlow: "rgba(0, 255, 65, 0.3)",
+  cyber: "#00d9ff",
+  cyberGlow: "rgba(0, 217, 255, 0.3)",
+  purple: "#b744ff",
+  purpleGlow: "rgba(183, 68, 255, 0.3)",
 }
 
 export const darkColors = {
   gray1: "#0a0a0b",
-  gray2: "#111113",
+  gray2: "#0f0f12",
   gray3: "#18181b",
-  gray4: "#1f1f23",
-  gray5: "#27272a",
+  gray4: "#1f1f24",
+  gray5: "#27272e",
   gray6: "#3f3f46",
   gray7: "#52525b",
   gray8: "#71717a",
@@ -36,14 +43,24 @@ export const darkColors = {
   gray10: "#d4d4d8",
   gray11: "#e4e4e7",
   gray12: "#fafafa",
-  // Accent colors
-  primary: "#818cf8",
-  primaryHover: "#a5b4fc",
-  secondary: "#f472b6",
-  accent: "#22d3ee",
+  // Tech accent colors - Cyberpunk theme
+  primary: "#00ff41", // Matrix green
+  primaryHover: "#00cc33",
+  secondary: "#b744ff", // Electric purple
+  accent: "#00d9ff", // Cyber cyan
   success: "#4ade80",
   warning: "#fbbf24",
-  error: "#f87171",
+  error: "#ff2e63",
+  // Tech colors with glow effects
+  neon: "#00ff41",
+  neonGlow: "rgba(0, 255, 65, 0.4)",
+  cyber: "#00d9ff",
+  cyberGlow: "rgba(0, 217, 255, 0.4)",
+  purple: "#b744ff",
+  purpleGlow: "rgba(183, 68, 255, 0.4)",
+  // Background gradients
+  bgGradientStart: "#0a0a0b",
+  bgGradientEnd: "#1a0a2e",
 }
 
 export type Colors = typeof lightColors
