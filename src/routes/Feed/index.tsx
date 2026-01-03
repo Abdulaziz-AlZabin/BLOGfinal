@@ -49,7 +49,7 @@ const Feed: React.FC = () => {
             <FiSearch className="search-icon" />
             <input
               type="text"
-              placeholder="$ search posts..."
+              placeholder="Search posts..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="search-input"
