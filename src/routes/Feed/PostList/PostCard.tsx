@@ -239,7 +239,10 @@ const StyledWrapper = styled(Link)`
       font-size: 1.375rem;
       font-weight: 700;
       line-height: 1.4;
-      color: ${({ theme }) => theme.colors.gray12};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.gray12 
+          : theme.colors.gray12};
       margin-bottom: 0.875rem;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -251,7 +254,10 @@ const StyledWrapper = styled(Link)`
     .summary {
       font-size: 0.9375rem;
       line-height: 1.7;
-      color: ${({ theme }) => theme.colors.gray10};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.gray11 
+          : theme.colors.gray10};
       margin-bottom: 1.25rem;
       display: -webkit-box;
       -webkit-line-clamp: 2;
