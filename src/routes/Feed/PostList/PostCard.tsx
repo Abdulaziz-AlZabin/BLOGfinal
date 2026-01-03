@@ -280,7 +280,10 @@ const StyledWrapper = styled(Link)`
         align-items: center;
         gap: 0.5rem;
         font-size: 0.8125rem;
-        color: ${({ theme }) => theme.colors.gray9};
+        color: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? theme.colors.gray10 
+            : theme.colors.gray9};
 
         svg {
           width: 14px;
