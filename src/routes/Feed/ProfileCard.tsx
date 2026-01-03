@@ -83,7 +83,10 @@ const StyledWrapper = styled.div`
       font-size: 2.5rem;
       font-weight: 800;
       letter-spacing: -0.02em;
-      color: ${({ theme }) => theme.colors.gray12};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? "#ffffff" 
+          : theme.colors.gray12};
       margin-bottom: 1rem;
 
       @media (max-width: 640px) {
