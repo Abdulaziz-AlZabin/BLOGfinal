@@ -64,21 +64,36 @@ const StyledWrapper = styled.div`
 
   .notion-content {
     /* Better text readability */
-    color: ${({ theme }) => theme.colors.gray12};
+    color: ${({ theme }) => 
+      theme.scheme === "dark" 
+        ? "#ffffff" 
+        : theme.colors.gray12};
     
     /* Improve paragraph spacing */
     p {
       margin-bottom: 1rem;
       line-height: 1.8;
-      color: ${({ theme }) => theme.colors.gray11};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.gray12 
+          : theme.colors.gray11};
+      font-size: 1.0625rem;
     }
 
     /* Headings */
     h1, h2, h3, h4, h5, h6 {
-      color: ${({ theme }) => theme.colors.gray12};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? "#ffffff" 
+          : theme.colors.gray12};
       margin-top: 2rem;
       margin-bottom: 1rem;
+      font-weight: 700;
     }
+
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.625rem; }
+    h3 { font-size: 1.375rem; }
 
     /* Links */
     a {
@@ -86,6 +101,7 @@ const StyledWrapper = styled.div`
       text-decoration: underline;
       text-decoration-color: ${({ theme }) => `${theme.colors.primary}40`};
       transition: all 0.2s ease;
+      font-weight: 500;
 
       &:hover {
         text-decoration-color: ${({ theme }) => theme.colors.primary};
@@ -96,20 +112,31 @@ const StyledWrapper = styled.div`
     ul, ol {
       margin-bottom: 1rem;
       padding-left: 1.5rem;
-      color: ${({ theme }) => theme.colors.gray11};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.gray12 
+          : theme.colors.gray11};
     }
 
     li {
       margin-bottom: 0.5rem;
+      line-height: 1.7;
     }
 
     /* Code blocks */
     code {
-      background: ${({ theme }) => theme.colors.gray3};
-      color: ${({ theme }) => theme.colors.gray12};
+      background: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.gray3 
+          : theme.colors.gray3};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.gray12 
+          : theme.colors.gray12};
       padding: 0.2rem 0.4rem;
       border-radius: 4px;
       font-size: 0.9em;
+      font-weight: 500;
     }
 
     pre {
@@ -123,6 +150,10 @@ const StyledWrapper = styled.div`
       code {
         background: transparent;
         padding: 0;
+        color: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? theme.colors.gray11 
+            : theme.colors.gray12};
       }
     }
 
@@ -131,8 +162,12 @@ const StyledWrapper = styled.div`
       border-left: 4px solid ${({ theme }) => theme.colors.primary};
       padding-left: 1rem;
       margin: 1.5rem 0;
-      color: ${({ theme }) => theme.colors.gray10};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.gray11 
+          : theme.colors.gray10};
       font-style: italic;
+      font-size: 1.0625rem;
     }
 
     /* Tables */
@@ -150,11 +185,17 @@ const StyledWrapper = styled.div`
       th {
         background: ${({ theme }) => theme.colors.gray3};
         font-weight: 600;
-        color: ${({ theme }) => theme.colors.gray12};
+        color: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? theme.colors.gray12 
+            : theme.colors.gray12};
       }
 
       td {
-        color: ${({ theme }) => theme.colors.gray11};
+        color: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? theme.colors.gray11 
+            : theme.colors.gray11};
       }
     }
 
@@ -164,6 +205,20 @@ const StyledWrapper = styled.div`
       max-width: 100%;
       height: auto;
       margin: 1rem 0;
+    }
+
+    /* Strong/Bold text */
+    strong, b {
+      font-weight: 700;
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? "#ffffff" 
+          : theme.colors.gray12};
+    }
+
+    /* Emphasis/Italic */
+    em, i {
+      font-style: italic;
     }
   }
 `
