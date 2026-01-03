@@ -3,6 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { CONFIG } from "site.config"
 import MetaConfig from "src/components/MetaConfig"
+import TerminalTyping from "src/components/TerminalTyping"
 import { FiArrowLeft, FiGithub, FiLinkedin, FiMail, FiExternalLink } from "react-icons/fi"
 
 const AboutPage = () => {
