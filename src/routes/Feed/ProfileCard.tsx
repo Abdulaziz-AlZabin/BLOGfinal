@@ -121,7 +121,10 @@ const StyledWrapper = styled.div`
 
     .bio {
       font-size: 1.125rem;
-      color: ${({ theme }) => theme.colors.gray10};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.gray11 
+          : theme.colors.gray10};
       line-height: 1.7;
       margin-bottom: 2rem;
       max-width: 500px;
