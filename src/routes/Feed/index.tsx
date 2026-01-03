@@ -328,52 +328,18 @@ const StyledWrapper = styled.div`
     justify-content: space-between;
     margin: 2.5rem 0 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid ${({ theme }) => 
-      theme.scheme === "dark" 
-        ? `${theme.colors.neon}20`
-        : theme.colors.gray4};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.gray4};
 
     h2 {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
       font-size: 1.75rem;
       font-weight: 700;
       color: ${({ theme }) => theme.colors.gray12};
-      font-family: 'Courier New', monospace;
-
-      .terminal-icon {
-        width: 24px;
-        height: 24px;
-        color: ${({ theme }) => 
-          theme.scheme === "dark" 
-            ? theme.colors.cyber
-            : theme.colors.primary};
-      }
-
-      .bracket {
-        color: ${({ theme }) => 
-          theme.scheme === "dark" 
-            ? theme.colors.purple
-            : theme.colors.primary};
-      }
+      letter-spacing: -0.02em;
     }
 
     .post-count {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
       font-size: 0.875rem;
       color: ${({ theme }) => theme.colors.gray9};
-      font-family: 'Courier New', monospace;
-
-      .prompt {
-        color: ${({ theme }) => 
-          theme.scheme === "dark" 
-            ? theme.colors.neon
-            : theme.colors.primary};
-        font-weight: 700;
-      }
     }
   }
 
