@@ -113,7 +113,10 @@ const StyledWrapper = styled.div`
       font-size: 2.5rem;
       font-weight: 800;
       line-height: 1.2;
-      color: ${({ theme }) => theme.colors.gray12};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? "#ffffff" 
+          : theme.colors.gray12};
       margin-bottom: 1rem;
 
       @media (max-width: 640px) {
@@ -124,7 +127,10 @@ const StyledWrapper = styled.div`
     .summary {
       font-size: 1.125rem;
       line-height: 1.7;
-      color: ${({ theme }) => theme.colors.gray10};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.gray11 
+          : theme.colors.gray10};
       margin-bottom: 1.5rem;
     }
 
