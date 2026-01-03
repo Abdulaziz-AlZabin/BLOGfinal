@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import Image from "next/image"
 import { CONFIG } from "site.config"
-import { FiCalendar, FiShield } from "react-icons/fi"
+import { FiShield } from "react-icons/fi"
 
 const ProfileCard: React.FC = () => {
   return (
@@ -29,13 +29,6 @@ const ProfileCard: React.FC = () => {
           </div>
           
           <p className="bio">{CONFIG.profile.bio}</p>
-
-          <div className="meta">
-            <div className="meta-item">
-              <FiCalendar />
-              <span>Since {CONFIG.since}</span>
-            </div>
-          </div>
         </div>
       </div>
     </StyledWrapper>
@@ -131,32 +124,6 @@ const StyledWrapper = styled.div`
       max-width: 500px;
       margin-left: auto;
       margin-right: auto;
-    }
-
-    .meta {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-
-      .meta-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        background: ${({ theme }) => theme.colors.gray3};
-        border: 1px solid ${({ theme }) => theme.colors.gray4};
-        font-size: 0.9375rem;
-        color: ${({ theme }) => theme.colors.gray10};
-
-        svg {
-          width: 16px;
-          height: 16px;
-          color: ${({ theme }) => theme.colors.primary};
-        }
-      }
     }
   }
 `
