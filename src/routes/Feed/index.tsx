@@ -94,15 +94,8 @@ const Feed: React.FC = () => {
 
         {/* Posts Header */}
         <div className="posts-header">
-          <h2>
-            <FiTerminal className="terminal-icon" />
-            <span className="bracket">{'['}</span>
-            Latest Posts
-            <span className="bracket">{']'}</span>
-          </h2>
-          <span className="post-count">
-            <span className="prompt">$</span> {filteredPosts.length} posts
-          </span>
+          <h2>Latest Posts</h2>
+          <span className="post-count">{filteredPosts.length} posts</span>
         </div>
 
         {/* Posts Grid/List */}
