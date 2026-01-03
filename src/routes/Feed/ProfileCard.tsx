@@ -140,7 +140,7 @@ const StyledWrapper = styled.div`
           : theme.colors.gray4};
       box-shadow: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? `0 0 30px ${theme.colors.neonGlow}, inset 0 0 20px ${theme.colors.neonGlow}`
+          ? `0 0 15px ${theme.colors.neonGlow}, inset 0 0 10px ${theme.colors.neonGlow}`
           : "0 8px 24px rgba(0, 0, 0, 0.12)"};
       z-index: 1;
       transition: transform 0.3s ease;
