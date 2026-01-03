@@ -32,11 +32,7 @@ const PostCard: React.FC<Props> = ({ data, viewMode }) => {
 
       <div className="content">
         {data.category && data.category[0] && (
-          <span className="category">
-            <span className="category-bracket">{'['}</span>
-            {data.category[0]}
-            <span className="category-bracket">{']'}</span>
-          </span>
+          <span className="category">{data.category[0]}</span>
         )}
 
         <h3 className="title">{data.title}</h3>
