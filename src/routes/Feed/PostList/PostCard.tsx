@@ -249,7 +249,7 @@ const StyledWrapper = styled(Link)`
       font-family: 'Courier New', monospace;
       box-shadow: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? `0 0 15px ${theme.colors.neonGlow}`
+          ? `0 0 10px ${theme.colors.neonGlow}`
           : "none"};
 
       .category-bracket {
