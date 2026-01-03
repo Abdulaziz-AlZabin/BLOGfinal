@@ -258,7 +258,10 @@ const StyledWrapper = styled.div`
     h2 {
       font-size: 1.5rem;
       font-weight: 700;
-      color: ${({ theme }) => theme.colors.gray12};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? "#ffffff" 
+          : theme.colors.gray12};
       margin-bottom: 1.25rem;
       padding-bottom: 0.75rem;
       border-bottom: 2px solid ${({ theme }) => theme.colors.primary};
@@ -268,7 +271,10 @@ const StyledWrapper = styled.div`
     p {
       font-size: 1rem;
       line-height: 1.8;
-      color: ${({ theme }) => theme.colors.gray11};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.gray11 
+          : theme.colors.gray11};
       margin-bottom: 1rem;
 
       &:last-of-type {
