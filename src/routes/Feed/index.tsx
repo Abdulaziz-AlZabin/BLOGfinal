@@ -213,7 +213,6 @@ const StyledWrapper = styled.div`
       background: ${({ theme }) => theme.colors.gray2};
       color: ${({ theme }) => theme.colors.gray12};
       font-size: 0.9375rem;
-      font-family: 'Courier New', monospace;
       transition: all 0.3s ease;
 
       &::placeholder {
