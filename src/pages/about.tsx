@@ -207,7 +207,10 @@ const StyledWrapper = styled.div`
       font-size: 2rem;
       font-weight: 800;
       margin-bottom: 0.5rem;
-      color: ${({ theme }) => theme.colors.gray12};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? "#ffffff" 
+          : theme.colors.gray12};
     }
 
     .role {
