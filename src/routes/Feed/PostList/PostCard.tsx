@@ -311,7 +311,6 @@ const StyledWrapper = styled(Link)`
       font-weight: 600;
       color: ${({ theme }) => theme.colors.gray10};
       transition: all 0.3s ease;
-      font-family: 'Courier New', monospace;
 
       .arrow {
         width: 16px;
