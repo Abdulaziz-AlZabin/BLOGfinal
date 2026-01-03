@@ -95,11 +95,11 @@ const StyledHeader = styled.header`
       : "rgba(10, 10, 11, 0.85)"};
   border-bottom: 1px solid ${({ theme }) => 
     theme.scheme === "dark" 
-      ? `${theme.colors.neon}20`
+      ? `${theme.colors.neon}15`
       : theme.colors.gray4};
   box-shadow: ${({ theme }) => 
     theme.scheme === "dark" 
-      ? `0 0 20px ${theme.colors.neonGlow}`
+      ? `0 0 10px rgba(0, 255, 65, 0.08)`
       : "none"};
 
   .header-inner {
@@ -126,8 +126,8 @@ const StyledHeader = styled.header`
 
     &:hover {
       .avatar-glow {
-        opacity: 1;
-        transform: scale(1.2);
+        opacity: 0.6;
+        transform: scale(1.1);
       }
 
       .terminal-icon {
@@ -147,7 +147,7 @@ const StyledHeader = styled.header`
 
       .avatar-glow {
         position: absolute;
-        inset: -4px;
+        inset: -3px;
         border-radius: 50%;
         background: ${({ theme }) => 
           theme.scheme === "dark"
@@ -155,7 +155,7 @@ const StyledHeader = styled.header`
             : theme.colors.primary};
         opacity: 0;
         transition: all 0.3s ease;
-        filter: blur(8px);
+        filter: blur(6px);
         z-index: 0;
       }
 
@@ -213,19 +213,6 @@ const StyledHeader = styled.header`
     transition: all 0.3s ease;
     border: 1px solid transparent;
     position: relative;
-    overflow: hidden;
-
-    &::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: ${({ theme }) => 
-        theme.scheme === "dark"
-          ? `linear-gradient(135deg, ${theme.colors.neon}20, ${theme.colors.cyber}20)`
-          : theme.colors.gray3};
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
 
     &:hover {
       color: ${({ theme }) => theme.colors.primary};
@@ -233,14 +220,14 @@ const StyledHeader = styled.header`
         theme.scheme === "dark" 
           ? theme.colors.neon
           : theme.colors.primary};
+      background: ${({ theme }) => 
+        theme.scheme === "dark"
+          ? `${theme.colors.neon}08`
+          : theme.colors.gray3};
       box-shadow: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? `0 0 15px ${theme.colors.neonGlow}`
+          ? `0 0 8px rgba(0, 255, 65, 0.1)`
           : "none"};
-
-      &::before {
-        opacity: 1;
-      }
     }
 
     svg {
@@ -289,11 +276,11 @@ const StyledHeader = styled.header`
             : theme.colors.primary};
         background: ${({ theme }) => 
           theme.scheme === "dark"
-            ? `${theme.colors.neon}10`
+            ? `${theme.colors.neon}08`
             : theme.colors.gray3};
         box-shadow: ${({ theme }) => 
           theme.scheme === "dark" 
-            ? `0 0 15px ${theme.colors.neonGlow}`
+            ? `0 0 8px rgba(0, 255, 65, 0.1)`
             : "none"};
         transform: translateY(-2px);
       }
@@ -312,43 +299,20 @@ const StyledHeader = styled.header`
     width: 42px;
     height: 42px;
     border-radius: 12px;
-    background: ${({ theme }) => 
-      theme.scheme === "dark"
-        ? theme.colors.gray3
-        : theme.colors.gray3};
+    background: ${({ theme }) => theme.colors.gray3};
     color: ${({ theme }) => theme.colors.gray11};
     transition: all 0.3s ease;
     border: 1px solid transparent;
     position: relative;
-    overflow: hidden;
-
-    &::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: ${({ theme }) => 
-        theme.scheme === "dark"
-          ? `linear-gradient(135deg, ${theme.colors.neon}, ${theme.colors.cyber})`
-          : theme.colors.primary};
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
 
     &:hover {
-      border-color: ${({ theme }) => 
-        theme.scheme === "dark" 
-          ? theme.colors.primary
-          : theme.colors.primary};
+      border-color: ${({ theme }) => theme.colors.primary};
       color: ${({ theme }) => theme.colors.primary};
       box-shadow: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? `0 0 20px ${theme.colors.neonGlow}`
-          : "0 4px 12px rgba(99, 102, 241, 0.2)"};
+          ? `0 0 10px rgba(0, 255, 65, 0.12)`
+          : "0 4px 12px rgba(99, 102, 241, 0.15)"};
       transform: translateY(-2px) rotate(20deg);
-
-      &::before {
-        opacity: 0.1;
-      }
     }
 
     svg {
