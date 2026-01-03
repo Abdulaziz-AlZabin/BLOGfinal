@@ -1,10 +1,28 @@
-# morethan-log
+# Abdulaziz Al-Zabin's Tech Blog
 
-<img width="1715" alt="image" src="https://user-images.githubusercontent.com/72514247/209824600-ca9c8acc-6d2d-4041-9931-43e34b8a9a5f.png">
+## 🚀 Modern Tech UI - Cyberpunk Edition
+
+A Next.js blog with a **complete modern tech redesign** featuring cyberpunk aesthetics, neon effects, and interactive animations. Perfect for a CyberSecurity enthusiast!
+
+### ✨ New Features
+- 🎨 **Cyberpunk Color Scheme**: Neon green, electric cyan, and purple
+- ⚡ **Glowing Effects**: Animated neon borders and hover states
+- 🌟 **Interactive Background**: Particle system with grid overlay
+- 💻 **Terminal Aesthetics**: Command-line inspired design elements
+- 🎭 **Smooth Animations**: Professional transitions and effects
+- 📱 **Fully Responsive**: Optimized for all devices
+
+### 🎯 Key Design Elements
+- Matrix-style neon green (#00ff41)
+- Cyber cyan accents (#00d9ff)
+- Electric purple highlights (#b744ff)
+- Animated orbit rings around avatar
+- Tech-themed tags and badges
+- Glowing post cards with hover effects
+
+---
 
 Next.js static blog using Notion as a Content Management System (CMS). Supports both Blog format Post as well as Page format for Resume. Deployed using Vercel.
-
-[Demo Blog](https://morethan-log.vercel.app) | [Demo Resume](https://morethan-log.vercel.app/resume)
 
 ## Features
 
