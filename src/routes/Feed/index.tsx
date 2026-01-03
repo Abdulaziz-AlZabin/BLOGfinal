@@ -1,6 +1,6 @@
 import { useState } from "react"
 import styled from "@emotion/styled"
-import { FiSearch, FiGrid, FiList } from "react-icons/fi"
+import { FiSearch, FiGrid, FiList, FiTerminal } from "react-icons/fi"
 import PostCard from "./PostList/PostCard"
 import Footer from "./Footer"
 import ProfileCard from "./ProfileCard"
@@ -49,11 +49,20 @@ const Feed: React.FC = () => {
             <FiSearch className="search-icon" />
             <input
               type="text"
-              placeholder="Search posts..."
+              placeholder="$ search posts..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="search-input"
             />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="clear-search"
+                aria-label="Clear search"
+              >
+                ×
+              </button>
+            )}
           </div>
 
           <div className="view-toggle">
@@ -61,6 +70,7 @@ const Feed: React.FC = () => {
               onClick={() => setViewMode("grid")}
               className={viewMode === "grid" ? "active" : ""}
               aria-label="Grid view"
+              data-testid="grid-view-btn"
             >
               <FiGrid />
             </button>
@@ -68,6 +78,7 @@ const Feed: React.FC = () => {
               onClick={() => setViewMode("list")}
               className={viewMode === "list" ? "active" : ""}
               aria-label="List view"
+              data-testid="list-view-btn"
             >
               <FiList />
             </button>
@@ -81,12 +92,20 @@ const Feed: React.FC = () => {
           onSelectTag={setSelectedTag}
         />
 
-        {/* Posts Grid/List */}
+        {/* Posts Header */}
         <div className="posts-header">
-          <h2>Latest Posts</h2>
-          <span className="post-count">{filteredPosts.length} posts</span>
+          <h2>
+            <FiTerminal className="terminal-icon" />
+            <span className="bracket">{'['}</span>
+            Latest Posts
+            <span className="bracket">{']'}</span>
+          </h2>
+          <span className="post-count">
+            <span className="prompt">$</span> {filteredPosts.length} posts
+          </span>
         </div>
 
+        {/* Posts Grid/List */}
         <div className={`posts-container ${viewMode}`}>
           {filteredPosts.length > 0 ? (
             filteredPosts.map((post) => (
@@ -94,6 +113,7 @@ const Feed: React.FC = () => {
             ))
           ) : (
             <div className="no-posts">
+              <div className="no-posts-icon">404</div>
               <p>No posts found</p>
               <span>Try adjusting your search or filters</span>
             </div>
@@ -112,10 +132,11 @@ const StyledWrapper = styled.div`
   .hero {
     position: relative;
     padding: 4rem 0 3rem;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 
     @media (max-width: 768px) {
       padding: 2rem 0 1.5rem;
+      margin-bottom: 2rem;
     }
 
     .hero-content {
@@ -129,14 +150,24 @@ const StyledWrapper = styled.div`
       left: 50%;
       transform: translateX(-50%);
       width: 100%;
-      max-width: 800px;
-      height: 300px;
-      background: radial-gradient(
-        ellipse at center,
-        ${({ theme }) => theme.colors.primary}15 0%,
-        transparent 70%
-      );
+      max-width: 900px;
+      height: 400px;
+      background: ${({ theme }) => 
+        theme.scheme === "dark"
+          ? `radial-gradient(
+              ellipse at center,
+              ${theme.colors.neon}15 0%,
+              ${theme.colors.cyber}10 30%,
+              ${theme.colors.purple}05 50%,
+              transparent 70%
+            )`
+          : `radial-gradient(
+              ellipse at center,
+              ${theme.colors.primary}10 0%,
+              transparent 70%
+            )`};
       pointer-events: none;
+      animation: pulse 4s ease-in-out infinite;
     }
   }
 
@@ -161,7 +192,7 @@ const StyledWrapper = styled.div`
   .search-wrapper {
     position: relative;
     flex: 1;
-    max-width: 400px;
+    max-width: 450px;
 
     @media (max-width: 640px) {
       max-width: 100%;
@@ -169,23 +200,28 @@ const StyledWrapper = styled.div`
 
     .search-icon {
       position: absolute;
-      left: 1rem;
+      left: 1.125rem;
       top: 50%;
       transform: translateY(-50%);
-      color: ${({ theme }) => theme.colors.gray8};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.neon
+          : theme.colors.gray8};
       width: 18px;
       height: 18px;
+      z-index: 1;
     }
 
     .search-input {
       width: 100%;
-      padding: 0.875rem 1rem 0.875rem 2.75rem;
+      padding: 0.875rem 3rem 0.875rem 3rem;
       border: 1px solid ${({ theme }) => theme.colors.gray4};
       border-radius: 12px;
       background: ${({ theme }) => theme.colors.gray2};
       color: ${({ theme }) => theme.colors.gray12};
       font-size: 0.9375rem;
-      transition: all 0.2s ease;
+      font-family: 'Courier New', monospace;
+      transition: all 0.3s ease;
 
       &::placeholder {
         color: ${({ theme }) => theme.colors.gray8};
@@ -193,9 +229,37 @@ const StyledWrapper = styled.div`
 
       &:focus {
         outline: none;
-        border-color: ${({ theme }) => theme.colors.primary};
+        border-color: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? theme.colors.neon
+            : theme.colors.primary};
         background: ${({ theme }) => theme.colors.gray1};
-        box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.primary}20;
+        box-shadow: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? `0 0 0 3px ${theme.colors.neonGlow}, 0 0 20px ${theme.colors.neonGlow}`
+            : `0 0 0 3px ${theme.colors.primary}20`};
+      }
+    }
+
+    .clear-search {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: ${({ theme }) => theme.colors.gray9};
+      font-size: 1.5rem;
+      transition: all 0.2s ease;
+      z-index: 1;
+
+      &:hover {
+        color: ${({ theme }) => theme.colors.error};
+        background: ${({ theme }) => `${theme.colors.error}15`};
       }
     }
   }
@@ -203,32 +267,64 @@ const StyledWrapper = styled.div`
   .view-toggle {
     display: flex;
     background: ${({ theme }) => theme.colors.gray3};
-    border-radius: 10px;
-    padding: 4px;
+    border-radius: 12px;
+    padding: 5px;
+    border: 1px solid ${({ theme }) => theme.colors.gray4};
 
     button {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 36px;
-      border-radius: 8px;
+      width: 42px;
+      height: 38px;
+      border-radius: 10px;
       color: ${({ theme }) => theme.colors.gray8};
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 10px;
+        background: ${({ theme }) => 
+          theme.scheme === "dark"
+            ? `linear-gradient(135deg, ${theme.colors.neon}20, ${theme.colors.cyber}20)`
+            : theme.colors.gray1};
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
 
       &.active {
         background: ${({ theme }) => theme.colors.gray1};
-        color: ${({ theme }) => theme.colors.primary};
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        color: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? theme.colors.neon
+            : theme.colors.primary};
+        box-shadow: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? `0 0 15px ${theme.colors.neonGlow}`
+            : "0 1px 3px rgba(0, 0, 0, 0.1)"};
+        border: 1px solid ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? theme.colors.neon
+            : "transparent"};
+
+        &::before {
+          opacity: 1;
+        }
       }
 
       &:not(.active):hover {
         color: ${({ theme }) => theme.colors.gray11};
+        background: ${({ theme }) => theme.colors.gray4};
       }
 
       svg {
         width: 18px;
         height: 18px;
+        position: relative;
+        z-index: 1;
       }
     }
   }
@@ -237,17 +333,54 @@ const StyledWrapper = styled.div`
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    margin: 2rem 0 1.5rem;
+    margin: 2.5rem 0 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid ${({ theme }) => 
+      theme.scheme === "dark" 
+        ? `${theme.colors.neon}20`
+        : theme.colors.gray4};
 
     h2 {
-      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.75rem;
       font-weight: 700;
       color: ${({ theme }) => theme.colors.gray12};
+      font-family: 'Courier New', monospace;
+
+      .terminal-icon {
+        width: 24px;
+        height: 24px;
+        color: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? theme.colors.cyber
+            : theme.colors.primary};
+      }
+
+      .bracket {
+        color: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? theme.colors.purple
+            : theme.colors.primary};
+      }
     }
 
     .post-count {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       font-size: 0.875rem;
       color: ${({ theme }) => theme.colors.gray9};
+      font-family: 'Courier New', monospace;
+
+      .prompt {
+        color: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? theme.colors.neon
+            : theme.colors.primary};
+        font-weight: 700;
+      }
     }
   }
 
@@ -265,26 +398,54 @@ const StyledWrapper = styled.div`
     &.list {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.25rem;
     }
   }
 
   .no-posts {
     grid-column: 1 / -1;
     text-align: center;
-    padding: 4rem 2rem;
+    padding: 5rem 2rem;
     background: ${({ theme }) => theme.colors.gray2};
-    border-radius: 16px;
+    border-radius: 20px;
+    border: 1px solid ${({ theme }) => theme.colors.gray4};
+
+    .no-posts-icon {
+      font-size: 4rem;
+      font-weight: 900;
+      font-family: 'Courier New', monospace;
+      background: ${({ theme }) => 
+        theme.scheme === "dark"
+          ? `linear-gradient(135deg, ${theme.colors.neon}, ${theme.colors.cyber})`
+          : `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.accent})`};
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      opacity: 0.6;
+    }
 
     p {
       font-size: 1.25rem;
       font-weight: 600;
       color: ${({ theme }) => theme.colors.gray11};
       margin-bottom: 0.5rem;
+      font-family: 'Courier New', monospace;
     }
 
     span {
       color: ${({ theme }) => theme.colors.gray9};
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.6;
+      transform: translateX(-50%) scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1.05);
     }
   }
 `
