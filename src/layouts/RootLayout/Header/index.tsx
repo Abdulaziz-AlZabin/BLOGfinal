@@ -3,7 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { CONFIG } from "site.config"
 import { SchemeType } from "src/types"
-import { FiSun, FiMoon, FiGithub, FiLinkedin, FiMail, FiUser } from "react-icons/fi"
+import { FiSun, FiMoon, FiGithub, FiLinkedin, FiMail, FiUser, FiTerminal } from "react-icons/fi"
 
 type Props = {
   scheme: SchemeType
@@ -16,6 +16,7 @@ export const Header = ({ scheme, toggleScheme }: Props) => {
       <div className="header-inner">
         <Link href="/" className="logo">
           <div className="avatar-wrapper">
+            <div className="avatar-glow" />
             <Image
               src={CONFIG.profile.image}
               alt="Logo"
@@ -24,7 +25,10 @@ export const Header = ({ scheme, toggleScheme }: Props) => {
               className="avatar"
             />
           </div>
-          <span className="site-name">{CONFIG.blog.title}</span>
+          <div className="logo-text">
+            <FiTerminal className="terminal-icon" />
+            <span className="site-name">{CONFIG.blog.title}</span>
+          </div>
         </Link>
 
         <nav className="nav-actions">
@@ -84,12 +88,19 @@ const StyledHeader = styled.header`
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(12px);
-  background-color: ${({ theme }) =>
+  backdrop-filter: blur(16px) saturate(180%);
+  background: ${({ theme }) =>
     theme.scheme === "light"
       ? "rgba(252, 252, 252, 0.85)"
       : "rgba(10, 10, 11, 0.85)"};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray4};
+  border-bottom: 1px solid ${({ theme }) => 
+    theme.scheme === "dark" 
+      ? `${theme.colors.neon}20`
+      : theme.colors.gray4};
+  box-shadow: ${({ theme }) => 
+    theme.scheme === "dark" 
+      ? `0 0 20px ${theme.colors.neonGlow}`
+      : "none"};
 
   .header-inner {
     max-width: 1400px;
@@ -107,30 +118,79 @@ const StyledHeader = styled.header`
   .logo {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.875rem;
     font-weight: 600;
     font-size: 1.125rem;
-    transition: opacity 0.2s ease;
+    transition: all 0.3s ease;
+    position: relative;
 
     &:hover {
-      opacity: 0.8;
-    }
+      .avatar-glow {
+        opacity: 1;
+        transform: scale(1.2);
+      }
 
-    .avatar-wrapper {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      overflow: hidden;
+      .terminal-icon {
+        color: ${({ theme }) => theme.colors.primary};
+        transform: rotate(10deg);
+      }
 
-      .avatar {
-        border-radius: 50%;
-        object-fit: cover;
+      .site-name {
+        color: ${({ theme }) => theme.colors.primary};
       }
     }
 
-    .site-name {
+    .avatar-wrapper {
+      position: relative;
+      width: 40px;
+      height: 40px;
+
+      .avatar-glow {
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        background: ${({ theme }) => 
+          theme.scheme === "dark"
+            ? `linear-gradient(135deg, ${theme.colors.neon}, ${theme.colors.cyber})`
+            : theme.colors.primary};
+        opacity: 0;
+        transition: all 0.3s ease;
+        filter: blur(8px);
+        z-index: 0;
+      }
+
+      .avatar {
+        position: relative;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? theme.colors.neon
+            : theme.colors.gray4};
+        z-index: 1;
+      }
+    }
+
+    .logo-text {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
       @media (max-width: 480px) {
         display: none;
+      }
+
+      .terminal-icon {
+        width: 18px;
+        height: 18px;
+        color: ${({ theme }) => theme.colors.gray9};
+        transition: all 0.3s ease;
+      }
+
+      .site-name {
+        font-family: 'Courier New', monospace;
+        letter-spacing: 0.05em;
+        transition: all 0.3s ease;
       }
     }
   }
@@ -146,23 +206,54 @@ const StyledHeader = styled.header`
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 0.9375rem;
     font-weight: 500;
     color: ${({ theme }) => theme.colors.gray11};
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: ${({ theme }) => 
+        theme.scheme === "dark"
+          ? `linear-gradient(135deg, ${theme.colors.neon}20, ${theme.colors.cyber}20)`
+          : theme.colors.gray3};
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
 
     &:hover {
       color: ${({ theme }) => theme.colors.primary};
-      background: ${({ theme }) => theme.colors.gray3};
+      border-color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.neon
+          : theme.colors.primary};
+      box-shadow: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? `0 0 15px ${theme.colors.neonGlow}`
+          : "none"};
+
+      &::before {
+        opacity: 1;
+      }
     }
 
     svg {
       width: 18px;
       height: 18px;
+      position: relative;
+      z-index: 1;
     }
 
     span {
+      position: relative;
+      z-index: 1;
+      
       @media (max-width: 640px) {
         display: none;
       }
@@ -182,15 +273,29 @@ const StyledHeader = styled.header`
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
       color: ${({ theme }) => theme.colors.gray10};
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+      position: relative;
 
       &:hover {
         color: ${({ theme }) => theme.colors.primary};
-        background: ${({ theme }) => theme.colors.gray3};
+        border-color: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? theme.colors.neon
+            : theme.colors.primary};
+        background: ${({ theme }) => 
+          theme.scheme === "dark"
+            ? `${theme.colors.neon}10`
+            : theme.colors.gray3};
+        box-shadow: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? `0 0 15px ${theme.colors.neonGlow}`
+            : "none"};
+        transform: translateY(-2px);
       }
 
       svg {
@@ -204,21 +309,54 @@ const StyledHeader = styled.header`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: ${({ theme }) => theme.colors.gray3};
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: ${({ theme }) => 
+      theme.scheme === "dark"
+        ? theme.colors.gray3
+        : theme.colors.gray3};
     color: ${({ theme }) => theme.colors.gray11};
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: ${({ theme }) => 
+        theme.scheme === "dark"
+          ? `linear-gradient(135deg, ${theme.colors.neon}, ${theme.colors.cyber})`
+          : theme.colors.primary};
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
 
     &:hover {
-      background: ${({ theme }) => theme.colors.gray4};
+      border-color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.primary
+          : theme.colors.primary};
       color: ${({ theme }) => theme.colors.primary};
+      box-shadow: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? `0 0 20px ${theme.colors.neonGlow}`
+          : "0 4px 12px rgba(99, 102, 241, 0.2)"};
+      transform: translateY(-2px) rotate(20deg);
+
+      &::before {
+        opacity: 0.1;
+      }
     }
 
     svg {
       width: 20px;
       height: 20px;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.3s ease;
     }
   }
 `
