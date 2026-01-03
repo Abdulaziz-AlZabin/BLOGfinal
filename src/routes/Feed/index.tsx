@@ -303,7 +303,7 @@ const StyledWrapper = styled.div`
             : theme.colors.primary};
         box-shadow: ${({ theme }) => 
           theme.scheme === "dark" 
-            ? `0 0 15px ${theme.colors.neonGlow}`
+            ? `0 0 10px ${theme.colors.neonGlow}`
             : "0 1px 3px rgba(0, 0, 0, 0.1)"};
         border: 1px solid ${({ theme }) => 
           theme.scheme === "dark" 
