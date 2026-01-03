@@ -4,7 +4,7 @@ import PageDetail from "./PageDetail"
 import styled from "@emotion/styled"
 import usePostQuery from "src/hooks/usePostQuery"
 import Link from "next/link"
-import { FiArrowLeft, FiCalendar, FiClock } from "react-icons/fi"
+import { FiArrowLeft, FiCalendar } from "react-icons/fi"
 import { CONFIG } from "site.config"
 import { formatDate } from "src/libs/utils"
 
@@ -62,7 +62,7 @@ export default Detail
 const StyledWrapper = styled.div`
   max-width: 800px;
   margin: 0 auto;
-  padding: 2rem 0 4rem;
+  padding: 2rem 1rem 4rem;
 
   .detail-header {
     margin-bottom: 3rem;
@@ -81,10 +81,12 @@ const StyledWrapper = styled.div`
       background: ${({ theme }) => theme.colors.gray3};
       margin-bottom: 2rem;
       transition: all 0.2s ease;
+      border: 1px solid transparent;
 
       &:hover {
         background: ${({ theme }) => theme.colors.gray4};
         color: ${({ theme }) => theme.colors.primary};
+        border-color: ${({ theme }) => theme.colors.primary};
       }
 
       svg {
@@ -97,13 +99,14 @@ const StyledWrapper = styled.div`
       display: inline-block;
       padding: 0.375rem 1rem;
       border-radius: 8px;
-      background: ${({ theme }) => theme.colors.primary}15;
+      background: ${({ theme }) => `${theme.colors.primary}15`};
       color: ${({ theme }) => theme.colors.primary};
       font-size: 0.8125rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin-bottom: 1rem;
+      border: 1px solid ${({ theme }) => `${theme.colors.primary}30`};
     }
 
     .title {
@@ -141,12 +144,14 @@ const StyledWrapper = styled.div`
         svg {
           width: 16px;
           height: 16px;
+          color: ${({ theme }) => theme.colors.primary};
         }
       }
 
       .tags {
         display: flex;
         gap: 0.75rem;
+        flex-wrap: wrap;
 
         .tag {
           font-size: 0.875rem;
@@ -158,7 +163,7 @@ const StyledWrapper = styled.div`
   }
 
   .detail-content {
-    /* Notion content styling */
+    /* Enhanced readability for Notion content */
   }
 
   &[data-type="Paper"] {
@@ -167,6 +172,6 @@ const StyledWrapper = styled.div`
 
   code[class*="language-mermaid"],
   pre[class*="language-mermaid"] {
-    background-color: ${({ theme }) => theme.colors.gray5};
+    background-color: ${({ theme }) => theme.colors.gray3} !important;
   }
 `
