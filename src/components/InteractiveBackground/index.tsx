@@ -2,19 +2,18 @@ import { useEffect, useRef } from "react"
 import styled from "@emotion/styled"
 import { useTheme } from "@emotion/react"
 
-interface Shape {
+interface Particle {
   x: number
   y: number
-  size: number
-  speedX: number
-  speedY: number
-  opacity: number
-  type: 'circle' | 'square' | 'triangle'
+  vx: number
+  vy: number
+  radius: number
 }
 
 const InteractiveBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const shapesRef = useRef<Shape[]>([])
+  const particlesRef = useRef<Particle[]>([])
+  const mouseRef = useRef({ x: 0, y: 0 })
   const animationRef = useRef<number>()
   const theme = useTheme() as any
 
@@ -28,68 +27,32 @@ const InteractiveBackground: React.FC = () => {
     const resizeCanvas = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
+      initParticles()
+    }
+
+    const initParticles = () => {
+      const particleCount = Math.floor((canvas.width * canvas.height) / 15000)
+      particlesRef.current = []
+      
+      for (let i = 0; i < particleCount; i++) {
+        particlesRef.current.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          radius: Math.random() * 2 + 1
+        })
+      }
     }
 
     resizeCanvas()
     window.addEventListener("resize", resizeCanvas)
 
-    // Create subtle floating shapes
-    const shapeCount = 15
-    shapesRef.current = Array.from({ length: shapeCount }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 30 + 20,
-      speedX: (Math.random() - 0.5) * 0.5,
-      speedY: (Math.random() - 0.5) * 0.5,
-      opacity: Math.random() * 0.03 + 0.01,
-      type: ['circle', 'square', 'triangle'][Math.floor(Math.random() * 3)] as 'circle' | 'square' | 'triangle',
-    }))
-
-    const drawShape = (shape: Shape) => {
-      ctx.save()
-      ctx.globalAlpha = shape.opacity
-      ctx.strokeStyle = theme.colors.primary
-      ctx.lineWidth = 1
-
-      if (shape.type === 'circle') {
-        ctx.beginPath()
-        ctx.arc(shape.x, shape.y, shape.size, 0, Math.PI * 2)
-        ctx.stroke()
-      } else if (shape.type === 'square') {
-        ctx.strokeRect(shape.x - shape.size, shape.y - shape.size, shape.size * 2, shape.size * 2)
-      } else if (shape.type === 'triangle') {
-        ctx.beginPath()
-        ctx.moveTo(shape.x, shape.y - shape.size)
-        ctx.lineTo(shape.x - shape.size, shape.y + shape.size)
-        ctx.lineTo(shape.x + shape.size, shape.y + shape.size)
-        ctx.closePath()
-        ctx.stroke()
-      }
-      ctx.restore()
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY }
     }
 
-    // Static grid
-    const drawGrid = () => {
-      if (!ctx || !canvas) return
-
-      const gridSize = 60
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.015)"
-      ctx.lineWidth = 1
-
-      for (let x = 0; x < canvas.width; x += gridSize) {
-        ctx.beginPath()
-        ctx.moveTo(x, 0)
-        ctx.lineTo(x, canvas.height)
-        ctx.stroke()
-      }
-
-      for (let y = 0; y < canvas.height; y += gridSize) {
-        ctx.beginPath()
-        ctx.moveTo(0, y)
-        ctx.lineTo(canvas.width, y)
-        ctx.stroke()
-      }
-    }
+    window.addEventListener("mousemove", handleMouseMove)
 
     const animate = () => {
       if (!ctx || !canvas) return
@@ -100,25 +63,120 @@ const InteractiveBackground: React.FC = () => {
         : "rgba(252, 252, 252, 1)"
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      // Draw static grid
+      // Draw subtle grid
       if (theme.scheme === "dark") {
-        drawGrid()
+        const gridSize = 60
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.02)"
+        ctx.lineWidth = 1
+
+        for (let x = 0; x < canvas.width; x += gridSize) {
+          ctx.beginPath()
+          ctx.moveTo(x, 0)
+          ctx.lineTo(x, canvas.height)
+          ctx.stroke()
+        }
+
+        for (let y = 0; y < canvas.height; y += gridSize) {
+          ctx.beginPath()
+          ctx.moveTo(0, y)
+          ctx.lineTo(canvas.width, y)
+          ctx.stroke()
+        }
       }
 
-      // Draw and update shapes
-      shapesRef.current.forEach((shape) => {
+      const particles = particlesRef.current
+      const mouse = mouseRef.current
+
+      // Update and draw particles
+      particles.forEach((particle, i) => {
+        // Mouse interaction
+        const dx = mouse.x - particle.x
+        const dy = mouse.y - particle.y
+        const distance = Math.sqrt(dx * dx + dy * dy)
+        const maxDistance = 150
+
+        if (distance < maxDistance) {
+          const force = (1 - distance / maxDistance) * 0.5
+          particle.vx -= (dx / distance) * force
+          particle.vy -= (dy / distance) * force
+        }
+
         // Update position
-        shape.x += shape.speedX
-        shape.y += shape.speedY
+        particle.x += particle.vx
+        particle.y += particle.vy
 
-        // Wrap around edges
-        if (shape.x < -shape.size) shape.x = canvas.width + shape.size
-        if (shape.x > canvas.width + shape.size) shape.x = -shape.size
-        if (shape.y < -shape.size) shape.y = canvas.height + shape.size
-        if (shape.y > canvas.height + shape.size) shape.y = -shape.size
+        // Add friction
+        particle.vx *= 0.99
+        particle.vy *= 0.99
 
-        drawShape(shape)
+        // Keep particles within bounds
+        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
+        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
+
+        particle.x = Math.max(0, Math.min(canvas.width, particle.x))
+        particle.y = Math.max(0, Math.min(canvas.height, particle.y))
+
+        // Draw particle
+        ctx.beginPath()
+        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
+        ctx.fillStyle = theme.scheme === "dark"
+          ? "rgba(16, 185, 129, 0.6)"
+          : "rgba(59, 130, 246, 0.6)"
+        ctx.fill()
+
+        // Draw connections to nearby particles
+        for (let j = i + 1; j < particles.length; j++) {
+          const other = particles[j]
+          const dx2 = particle.x - other.x
+          const dy2 = particle.y - other.y
+          const distance2 = Math.sqrt(dx2 * dx2 + dy2 * dy2)
+          const maxConnectionDistance = 120
+
+          if (distance2 < maxConnectionDistance) {
+            const opacity = 1 - distance2 / maxConnectionDistance
+            
+            ctx.beginPath()
+            ctx.moveTo(particle.x, particle.y)
+            ctx.lineTo(other.x, other.y)
+            ctx.strokeStyle = theme.scheme === "dark"
+              ? `rgba(16, 185, 129, ${opacity * 0.3})`
+              : `rgba(59, 130, 246, ${opacity * 0.3})`
+            ctx.lineWidth = 1
+            ctx.stroke()
+          }
+        }
+
+        // Draw connection to mouse if close
+        const mouseDistance = Math.sqrt(
+          (mouse.x - particle.x) ** 2 + (mouse.y - particle.y) ** 2
+        )
+        if (mouseDistance < 150) {
+          const opacity = 1 - mouseDistance / 150
+          ctx.beginPath()
+          ctx.moveTo(particle.x, particle.y)
+          ctx.lineTo(mouse.x, mouse.y)
+          ctx.strokeStyle = theme.scheme === "dark"
+            ? `rgba(16, 185, 129, ${opacity * 0.5})`
+            : `rgba(59, 130, 246, ${opacity * 0.5})`
+          ctx.lineWidth = 1.5
+          ctx.stroke()
+        }
       })
+
+      // Draw mouse cursor highlight
+      ctx.beginPath()
+      ctx.arc(mouse.x, mouse.y, 8, 0, Math.PI * 2)
+      ctx.fillStyle = theme.scheme === "dark"
+        ? "rgba(16, 185, 129, 0.15)"
+        : "rgba(59, 130, 246, 0.15)"
+      ctx.fill()
+
+      ctx.beginPath()
+      ctx.arc(mouse.x, mouse.y, 3, 0, Math.PI * 2)
+      ctx.fillStyle = theme.scheme === "dark"
+        ? "rgba(16, 185, 129, 0.5)"
+        : "rgba(59, 130, 246, 0.5)"
+      ctx.fill()
 
       animationRef.current = requestAnimationFrame(animate)
     }
@@ -127,6 +185,7 @@ const InteractiveBackground: React.FC = () => {
 
     return () => {
       window.removeEventListener("resize", resizeCanvas)
+      window.removeEventListener("mousemove", handleMouseMove)
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current)
       }
@@ -146,5 +205,4 @@ const StyledCanvas = styled.canvas`
   height: 100%;
   pointer-events: none;
   z-index: 0;
-  opacity: ${({ theme }) => theme.scheme === "dark" ? "0.4" : "0.2"};
 `
