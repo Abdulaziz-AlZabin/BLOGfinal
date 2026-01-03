@@ -169,7 +169,7 @@ const StyledWrapper = styled.div`
       animation: pulse 2s ease-in-out infinite;
       box-shadow: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? `0 0 20px ${theme.colors.neonGlow}`
+          ? `0 0 10px ${theme.colors.neonGlow}`
           : "none"};
 
       svg {
