@@ -238,7 +238,7 @@ const StyledWrapper = styled.div`
       margin-bottom: 1.5rem;
       box-shadow: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? `0 0 20px ${theme.colors.neonGlow}`
+          ? `0 0 10px ${theme.colors.neonGlow}`
           : "none"};
 
       .role-icon {
