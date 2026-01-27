@@ -146,7 +146,7 @@ const StyledWrapper = styled.div`
         gap: 0.5rem;
         font-size: 0.875rem;
         color: ${({ theme }) => 
-          theme.scheme === \"dark\" 
+          theme.scheme === "dark" 
             ? theme.colors.gray9 
             : theme.colors.gray9};
 
