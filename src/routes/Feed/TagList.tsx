@@ -118,7 +118,7 @@ const StyledWrapper = styled.div`
       position: relative;
       z-index: 1;
       color: ${({ theme }) => 
-        theme.scheme === \"dark\" 
+        theme.scheme === "dark" 
           ? theme.colors.gray9 
           : theme.colors.gray9};
       transition: color 0.3s ease;
