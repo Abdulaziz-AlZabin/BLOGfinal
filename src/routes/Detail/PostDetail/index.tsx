@@ -63,7 +63,7 @@ const StyledWrapper = styled.div`
   }
 
   .notion-content {
-    /* Better text readability */
+    /* Better text readability with brighter colors in dark mode */
     color: ${({ theme }) => 
       theme.scheme === "dark" 
         ? "#ffffff" 
@@ -75,7 +75,7 @@ const StyledWrapper = styled.div`
       line-height: 1.8;
       color: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? theme.colors.gray12 
+          ? "#e4e4e7" 
           : theme.colors.gray11};
       font-size: 1.0625rem;
     }
@@ -95,7 +95,7 @@ const StyledWrapper = styled.div`
     h2 { font-size: 1.625rem; }
     h3 { font-size: 1.375rem; }
 
-    /* Links */
+    /* Links with green highlight */
     a {
       color: ${({ theme }) => theme.colors.primary};
       text-decoration: underline;
@@ -105,6 +105,10 @@ const StyledWrapper = styled.div`
 
       &:hover {
         text-decoration-color: ${({ theme }) => theme.colors.primary};
+        text-shadow: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? `0 0 10px ${theme.colors.primary}40` 
+            : "none"};
       }
     }
 
@@ -114,7 +118,7 @@ const StyledWrapper = styled.div`
       padding-left: 1.5rem;
       color: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? theme.colors.gray12 
+          ? "#e4e4e7" 
           : theme.colors.gray11};
     }
 
@@ -123,7 +127,7 @@ const StyledWrapper = styled.div`
       line-height: 1.7;
     }
 
-    /* Code blocks */
+    /* Code blocks with green accent */
     code {
       background: ${({ theme }) => 
         theme.scheme === "dark" 
@@ -131,17 +135,24 @@ const StyledWrapper = styled.div`
           : theme.colors.gray3};
       color: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? theme.colors.gray12 
+          ? "#e4e4e7" 
           : theme.colors.gray12};
       padding: 0.2rem 0.4rem;
       border-radius: 4px;
       font-size: 0.9em;
       font-weight: 500;
+      border: 1px solid ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? `${theme.colors.primary}20` 
+          : "transparent"};
     }
 
     pre {
       background: ${({ theme }) => theme.colors.gray3} !important;
-      border: 1px solid ${({ theme }) => theme.colors.gray4};
+      border: 1px solid ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? `${theme.colors.primary}30` 
+          : theme.colors.gray4};
       border-radius: 8px;
       padding: 1rem;
       overflow-x: auto;
@@ -150,9 +161,10 @@ const StyledWrapper = styled.div`
       code {
         background: transparent;
         padding: 0;
+        border: none;
         color: ${({ theme }) => 
           theme.scheme === "dark" 
-            ? theme.colors.gray11 
+            ? "#e4e4e7" 
             : theme.colors.gray12};
       }
     }
@@ -164,10 +176,16 @@ const StyledWrapper = styled.div`
       margin: 1.5rem 0;
       color: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? theme.colors.gray11 
+          ? "#d4d4d8" 
           : theme.colors.gray10};
       font-style: italic;
       font-size: 1.0625rem;
+      background: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? `${theme.colors.primary}10` 
+          : "transparent"};
+      padding: 1rem;
+      border-radius: 4px;
     }
 
     /* Tables */
@@ -183,18 +201,25 @@ const StyledWrapper = styled.div`
       }
 
       th {
-        background: ${({ theme }) => theme.colors.gray3};
+        background: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? `${theme.colors.primary}15` 
+            : theme.colors.gray3};
         font-weight: 600;
         color: ${({ theme }) => 
           theme.scheme === "dark" 
-            ? theme.colors.gray12 
+            ? "#ffffff" 
             : theme.colors.gray12};
+        border-bottom: 2px solid ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? theme.colors.primary 
+            : theme.colors.gray5};
       }
 
       td {
         color: ${({ theme }) => 
           theme.scheme === "dark" 
-            ? theme.colors.gray11 
+            ? "#e4e4e7" 
             : theme.colors.gray11};
       }
     }
@@ -205,6 +230,10 @@ const StyledWrapper = styled.div`
       max-width: 100%;
       height: auto;
       margin: 1rem 0;
+      border: 1px solid ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? `${theme.colors.primary}20` 
+          : theme.colors.gray4};
     }
 
     /* Strong/Bold text */
