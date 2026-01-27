@@ -2,15 +2,9 @@ import styled from "@emotion/styled"
 import Link from "next/link"
 import Image from "next/image"
 import { CONFIG } from "site.config"
-import { SchemeType } from "src/types"
-import { FiSun, FiMoon, FiGithub, FiLinkedin, FiMail, FiUser } from "react-icons/fi"
+import { FiGithub, FiLinkedin, FiMail, FiUser } from "react-icons/fi"
 
-type Props = {
-  scheme: SchemeType
-  toggleScheme: () => void
-}
-
-export const Header = ({ scheme, toggleScheme }: Props) => {
+export const Header = () => {
   return (
     <StyledHeader>
       <div className="header-inner">
@@ -66,14 +60,6 @@ export const Header = ({ scheme, toggleScheme }: Props) => {
               </a>
             )}
           </div>
-
-          <button
-            onClick={toggleScheme}
-            className="theme-toggle"
-            aria-label={`Switch to ${scheme === 'light' ? 'dark' : 'light'} mode`}
-          >
-            {scheme === "light" ? <FiMoon /> : <FiSun />}
-          </button>
         </nav>
       </div>
     </StyledHeader>
