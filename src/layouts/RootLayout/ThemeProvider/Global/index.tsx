@@ -56,40 +56,28 @@ export const Global = () => {
         }
 
         ::-webkit-scrollbar-thumb {
-          background: ${theme.scheme === "dark" 
-            ? `linear-gradient(180deg, ${theme.colors.neon}, ${theme.colors.cyber})`
-            : theme.colors.gray6};
+          background: linear-gradient(180deg, ${theme.colors.neon}, ${theme.colors.cyber});
           border-radius: 10px;
           border: 2px solid ${theme.colors.gray2};
         }
 
         ::-webkit-scrollbar-thumb:hover {
-          background: ${theme.scheme === "dark"
-            ? `linear-gradient(180deg, ${theme.colors.cyber}, ${theme.colors.purple})`
-            : theme.colors.gray7};
-          box-shadow: ${theme.scheme === "dark" 
-            ? `0 0 10px ${theme.colors.neonGlow}`
-            : "none"};
+          background: linear-gradient(180deg, ${theme.colors.cyber}, ${theme.colors.purple});
+          box-shadow: 0 0 10px ${theme.colors.neonGlow};
         }
 
         /* Selection with tech colors */
         ::selection {
-          background: ${theme.scheme === "dark" 
-            ? theme.colors.neon
-            : theme.colors.primary};
-          color: ${theme.scheme === "dark" ? "#000" : "white"};
-          text-shadow: ${theme.scheme === "dark" 
-            ? `0 0 8px ${theme.colors.neonGlow}`
-            : "none"};
+          background: ${theme.colors.neon};
+          color: #000;
+          text-shadow: 0 0 8px ${theme.colors.neonGlow};
         }
 
         /* Focus outline with glow effect */
         :focus-visible {
           outline: 2px solid ${theme.colors.primary};
           outline-offset: 2px;
-          box-shadow: ${theme.scheme === "dark" 
-            ? `0 0 15px ${theme.colors.neonGlow}`
-            : "none"};
+          box-shadow: 0 0 15px ${theme.colors.neonGlow};
         }
 
         /* Tech-inspired animations */
