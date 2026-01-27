@@ -115,9 +115,7 @@ const InteractiveBackground: React.FC = () => {
         // Draw particle
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
-        ctx.fillStyle = theme.scheme === "dark"
-          ? "rgba(16, 185, 129, 0.6)"
-          : "rgba(59, 130, 246, 0.6)"
+        ctx.fillStyle = "rgba(16, 185, 129, 0.6)"
         ctx.fill()
 
         // Draw connections to nearby particles
@@ -134,9 +132,7 @@ const InteractiveBackground: React.FC = () => {
             ctx.beginPath()
             ctx.moveTo(particle.x, particle.y)
             ctx.lineTo(other.x, other.y)
-            ctx.strokeStyle = theme.scheme === "dark"
-              ? `rgba(16, 185, 129, ${opacity * 0.3})`
-              : `rgba(59, 130, 246, ${opacity * 0.3})`
+            ctx.strokeStyle = `rgba(16, 185, 129, ${opacity * 0.3})`
             ctx.lineWidth = 1
             ctx.stroke()
           }
@@ -151,9 +147,7 @@ const InteractiveBackground: React.FC = () => {
           ctx.beginPath()
           ctx.moveTo(particle.x, particle.y)
           ctx.lineTo(mouse.x, mouse.y)
-          ctx.strokeStyle = theme.scheme === "dark"
-            ? `rgba(16, 185, 129, ${opacity * 0.5})`
-            : `rgba(59, 130, 246, ${opacity * 0.5})`
+          ctx.strokeStyle = `rgba(16, 185, 129, ${opacity * 0.5})`
           ctx.lineWidth = 1.5
           ctx.stroke()
         }
@@ -162,16 +156,12 @@ const InteractiveBackground: React.FC = () => {
       // Draw mouse cursor highlight
       ctx.beginPath()
       ctx.arc(mouse.x, mouse.y, 8, 0, Math.PI * 2)
-      ctx.fillStyle = theme.scheme === "dark"
-        ? "rgba(16, 185, 129, 0.15)"
-        : "rgba(59, 130, 246, 0.15)"
+      ctx.fillStyle = "rgba(16, 185, 129, 0.15)"
       ctx.fill()
 
       ctx.beginPath()
       ctx.arc(mouse.x, mouse.y, 3, 0, Math.PI * 2)
-      ctx.fillStyle = theme.scheme === "dark"
-        ? "rgba(16, 185, 129, 0.5)"
-        : "rgba(59, 130, 246, 0.5)"
+      ctx.fillStyle = "rgba(16, 185, 129, 0.5)"
       ctx.fill()
 
       animationRef.current = requestAnimationFrame(animate)
