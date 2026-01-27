@@ -213,7 +213,7 @@ const StyledWrapper = styled.div`
       background: ${({ theme }) => theme.colors.gray5};
       font-size: 0.75rem;
       color: ${({ theme }) => 
-        theme.scheme === \"dark\" 
+        theme.scheme === "dark" 
           ? theme.colors.gray10 
           : theme.colors.gray10};
       font-weight: 600;
