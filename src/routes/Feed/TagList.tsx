@@ -157,19 +157,19 @@ const StyledWrapper = styled.div`
     &.active {
       background: ${({ theme }) => 
         theme.scheme === "dark"
-          ? `linear-gradient(135deg, ${theme.colors.neon}20, ${theme.colors.cyber}20)`
+          ? `${theme.colors.primary}25`
           : theme.colors.primary};
       color: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? theme.colors.neon
+          ? theme.colors.primary
           : "white"};
       border-color: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? theme.colors.neon
+          ? theme.colors.primary
           : theme.colors.primary};
       box-shadow: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? `0 0 15px ${theme.colors.neonGlow}, inset 0 0 10px ${theme.colors.neonGlow}`
+          ? `0 0 20px ${theme.colors.primary}40`
           : "0 4px 15px rgba(99, 102, 241, 0.3)"};
 
       &::before {
@@ -179,7 +179,7 @@ const StyledWrapper = styled.div`
       .hash-icon {
         color: ${({ theme }) => 
           theme.scheme === "dark" 
-            ? theme.colors.neon
+            ? theme.colors.primary
             : "white"};
       }
     }
