@@ -352,19 +352,13 @@ const StyledWrapper = styled.div`
 
       .project-name {
         font-weight: 500;
-        color: ${({ theme }) => 
-          theme.scheme === \"dark\" 
-            ? theme.colors.gray12 
-            : theme.colors.gray12};
+        color: ${({ theme }) => theme.colors.gray12};
       }
 
       .project-icon {
         width: 18px;
         height: 18px;
-        color: ${({ theme }) => 
-          theme.scheme === \"dark\" 
-            ? theme.colors.gray8 
-            : theme.colors.gray8};
+        color: ${({ theme }) => theme.colors.gray8};
         transition: color 0.2s ease;
       }
     }
