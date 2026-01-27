@@ -52,7 +52,7 @@ const StyledWrapper = styled.footer`
   .copyright {
     font-size: 0.875rem;
     color: ${({ theme }) => 
-      theme.scheme === \"dark\" 
+      theme.scheme === "dark" 
         ? theme.colors.gray10 
         : theme.colors.gray10};
   }
@@ -63,7 +63,7 @@ const StyledWrapper = styled.footer`
     gap: 0.5rem;
     font-size: 0.875rem;
     color: ${({ theme }) => 
-      theme.scheme === \"dark\" 
+      theme.scheme === "dark" 
         ? theme.colors.gray9 
         : theme.colors.gray9};
 
