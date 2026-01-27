@@ -58,30 +58,26 @@ const InteractiveBackground: React.FC = () => {
       if (!ctx || !canvas) return
 
       // Clear canvas
-      ctx.fillStyle = theme.scheme === "dark" 
-        ? "rgba(10, 10, 11, 1)"
-        : "rgba(252, 252, 252, 1)"
+      ctx.fillStyle = "rgba(10, 10, 11, 1)"
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
       // Draw subtle grid
-      if (theme.scheme === "dark") {
-        const gridSize = 60
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.02)"
-        ctx.lineWidth = 1
+      const gridSize = 60
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.02)"
+      ctx.lineWidth = 1
 
-        for (let x = 0; x < canvas.width; x += gridSize) {
-          ctx.beginPath()
-          ctx.moveTo(x, 0)
-          ctx.lineTo(x, canvas.height)
-          ctx.stroke()
-        }
+      for (let x = 0; x < canvas.width; x += gridSize) {
+        ctx.beginPath()
+        ctx.moveTo(x, 0)
+        ctx.lineTo(x, canvas.height)
+        ctx.stroke()
+      }
 
-        for (let y = 0; y < canvas.height; y += gridSize) {
-          ctx.beginPath()
-          ctx.moveTo(0, y)
-          ctx.lineTo(canvas.width, y)
-          ctx.stroke()
-        }
+      for (let y = 0; y < canvas.height; y += gridSize) {
+        ctx.beginPath()
+        ctx.moveTo(0, y)
+        ctx.lineTo(canvas.width, y)
+        ctx.stroke()
       }
 
       const particles = particlesRef.current
