@@ -51,7 +51,10 @@ const StyledWrapper = styled.footer`
 
   .copyright {
     font-size: 0.875rem;
-    color: ${({ theme }) => theme.colors.gray10};
+    color: ${({ theme }) => 
+      theme.scheme === \"dark\" 
+        ? theme.colors.gray10 
+        : theme.colors.gray10};
   }
 
   .made-with {
@@ -59,7 +62,10 @@ const StyledWrapper = styled.footer`
     align-items: center;
     gap: 0.5rem;
     font-size: 0.875rem;
-    color: ${({ theme }) => theme.colors.gray9};
+    color: ${({ theme }) => 
+      theme.scheme === \"dark\" 
+        ? theme.colors.gray9 
+        : theme.colors.gray9};
 
     .heart {
       color: ${({ theme }) => theme.colors.error};
