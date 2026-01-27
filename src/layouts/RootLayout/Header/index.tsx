@@ -71,18 +71,9 @@ const StyledHeader = styled.header`
   top: 0;
   z-index: 100;
   backdrop-filter: blur(16px) saturate(180%);
-  background: ${({ theme }) =>
-    theme.scheme === "light"
-      ? "rgba(252, 252, 252, 0.85)"
-      : "rgba(10, 10, 11, 0.85)"};
-  border-bottom: 1px solid ${({ theme }) => 
-    theme.scheme === "dark" 
-      ? `${theme.colors.neon}15`
-      : theme.colors.gray4};
-  box-shadow: ${({ theme }) => 
-    theme.scheme === "dark" 
-      ? `0 0 10px rgba(0, 255, 65, 0.08)`
-      : "none"};
+  background: rgba(10, 10, 11, 0.85);
+  border-bottom: 1px solid ${({ theme }) => `${theme.colors.neon}15`};
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.08);
 
   .header-inner {
     max-width: 1400px;
@@ -104,10 +95,7 @@ const StyledHeader = styled.header`
     font-weight: 600;
     font-size: 1.125rem;
     transition: opacity 0.2s ease;
-    color: ${({ theme }) => 
-      theme.scheme === "dark" 
-        ? "#ffffff" 
-        : theme.colors.gray12};
+    color: #ffffff;
 
     &:hover {
       opacity: 0.8;
@@ -148,28 +136,16 @@ const StyledHeader = styled.header`
     border-radius: 10px;
     font-size: 0.9375rem;
     font-weight: 500;
-    color: ${({ theme }) => 
-      theme.scheme === "dark" 
-        ? theme.colors.gray11 
-        : theme.colors.gray11};
+    color: ${({ theme }) => theme.colors.gray11};
     transition: all 0.3s ease;
     border: 1px solid transparent;
     position: relative;
 
     &:hover {
       color: ${({ theme }) => theme.colors.primary};
-      border-color: ${({ theme }) => 
-        theme.scheme === "dark" 
-          ? theme.colors.neon
-          : theme.colors.primary};
-      background: ${({ theme }) => 
-        theme.scheme === "dark"
-          ? `${theme.colors.neon}08`
-          : theme.colors.gray3};
-      box-shadow: ${({ theme }) => 
-        theme.scheme === "dark" 
-          ? `0 0 8px rgba(0, 255, 65, 0.1)`
-          : "none"};
+      border-color: ${({ theme }) => theme.colors.neon};
+      background: ${({ theme }) => `${theme.colors.neon}08`};
+      box-shadow: 0 0 8px rgba(0, 255, 65, 0.1);
     }
 
     svg {
@@ -205,28 +181,16 @@ const StyledHeader = styled.header`
       width: 38px;
       height: 38px;
       border-radius: 10px;
-      color: ${({ theme }) => 
-        theme.scheme === "dark" 
-          ? theme.colors.gray10 
-          : theme.colors.gray10};
+      color: ${({ theme }) => theme.colors.gray10};
       transition: all 0.3s ease;
       border: 1px solid transparent;
       position: relative;
 
       &:hover {
         color: ${({ theme }) => theme.colors.primary};
-        border-color: ${({ theme }) => 
-          theme.scheme === "dark" 
-            ? theme.colors.neon
-            : theme.colors.primary};
-        background: ${({ theme }) => 
-          theme.scheme === "dark"
-            ? `${theme.colors.neon}08`
-            : theme.colors.gray3};
-        box-shadow: ${({ theme }) => 
-          theme.scheme === "dark" 
-            ? `0 0 8px rgba(0, 255, 65, 0.1)`
-            : "none"};
+        border-color: ${({ theme }) => theme.colors.neon};
+        background: ${({ theme }) => `${theme.colors.neon}08`};
+        box-shadow: 0 0 8px rgba(0, 255, 65, 0.1);
         transform: translateY(-2px);
       }
 
