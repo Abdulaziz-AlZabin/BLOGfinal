@@ -89,7 +89,7 @@ const StyledWrapper = styled.div`
     border-radius: 9999px;
     background: ${({ theme }) => theme.colors.gray3};
     color: ${({ theme }) => 
-      theme.scheme === \"dark\" 
+      theme.scheme === "dark" 
         ? theme.colors.gray11 
         : theme.colors.gray11};
     font-size: 0.875rem;
