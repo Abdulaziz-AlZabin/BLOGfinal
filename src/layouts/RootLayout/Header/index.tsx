@@ -3,7 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { CONFIG } from "site.config"
 import { SchemeType } from "src/types"
-import { FiSun, FiMoon, FiGithub, FiLinkedin, FiMail, FiUser, FiTerminal } from "react-icons/fi"
+import { FiSun, FiMoon, FiGithub, FiLinkedin, FiMail, FiUser } from "react-icons/fi"
 
 type Props = {
   scheme: SchemeType
@@ -118,6 +118,10 @@ const StyledHeader = styled.header`
     font-weight: 600;
     font-size: 1.125rem;
     transition: opacity 0.2s ease;
+    color: ${({ theme }) => 
+      theme.scheme === "dark" 
+        ? "#ffffff" 
+        : theme.colors.gray12};
 
     &:hover {
       opacity: 0.8;
@@ -158,7 +162,10 @@ const StyledHeader = styled.header`
     border-radius: 10px;
     font-size: 0.9375rem;
     font-weight: 500;
-    color: ${({ theme }) => theme.colors.gray11};
+    color: ${({ theme }) => 
+      theme.scheme === "dark" 
+        ? theme.colors.gray11 
+        : theme.colors.gray11};
     transition: all 0.3s ease;
     border: 1px solid transparent;
     position: relative;
@@ -212,7 +219,10 @@ const StyledHeader = styled.header`
       width: 38px;
       height: 38px;
       border-radius: 10px;
-      color: ${({ theme }) => theme.colors.gray10};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.gray10 
+          : theme.colors.gray10};
       transition: all 0.3s ease;
       border: 1px solid transparent;
       position: relative;
@@ -249,7 +259,10 @@ const StyledHeader = styled.header`
     height: 42px;
     border-radius: 12px;
     background: ${({ theme }) => theme.colors.gray3};
-    color: ${({ theme }) => theme.colors.gray11};
+    color: ${({ theme }) => 
+      theme.scheme === "dark" 
+        ? theme.colors.gray11 
+        : theme.colors.gray11};
     transition: all 0.3s ease;
     border: 1px solid transparent;
     position: relative;
