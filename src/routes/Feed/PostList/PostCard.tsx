@@ -282,7 +282,7 @@ const StyledWrapper = styled(Link)`
         font-size: 0.8125rem;
         color: ${({ theme }) => 
           theme.scheme === "dark" 
-            ? theme.colors.gray10 
+            ? "#d4d4d8" 
             : theme.colors.gray9};
 
         svg {
@@ -290,8 +290,8 @@ const StyledWrapper = styled(Link)`
           height: 14px;
           color: ${({ theme }) => 
             theme.scheme === "dark" 
-              ? theme.colors.cyber
-              : theme.colors.gray9};
+              ? theme.colors.primary 
+              : theme.colors.primary};
         }
       }
 
@@ -303,7 +303,7 @@ const StyledWrapper = styled(Link)`
           font-size: 0.8125rem;
           color: ${({ theme }) => 
             theme.scheme === "dark" 
-              ? theme.colors.gray10 
+              ? theme.colors.primary 
               : theme.colors.gray9};
 
           &.more {
