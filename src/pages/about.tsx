@@ -268,10 +268,7 @@ const StyledWrapper = styled.div`
     p {
       font-size: 1rem;
       line-height: 1.8;
-      color: ${({ theme }) => 
-        theme.scheme === "dark" 
-          ? theme.colors.gray11 
-          : theme.colors.gray11};
+      color: #e4e4e7;
       margin-bottom: 1rem;
 
       &:last-of-type {
