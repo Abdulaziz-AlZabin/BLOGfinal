@@ -241,7 +241,7 @@ const StyledWrapper = styled(Link)`
       line-height: 1.4;
       color: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? theme.colors.gray12 
+          ? "#ffffff" 
           : theme.colors.gray12};
       margin-bottom: 0.875rem;
       display: -webkit-box;
@@ -256,7 +256,7 @@ const StyledWrapper = styled(Link)`
       line-height: 1.7;
       color: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? theme.colors.gray11 
+          ? "#e4e4e7" 
           : theme.colors.gray10};
       margin-bottom: 1.25rem;
       display: -webkit-box;
