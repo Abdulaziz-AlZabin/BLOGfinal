@@ -321,7 +321,10 @@ const StyledWrapper = styled(Link)`
       margin-top: 1rem;
       font-size: 0.875rem;
       font-weight: 600;
-      color: ${({ theme }) => theme.colors.gray10};
+      color: ${({ theme }) => 
+        theme.scheme === \"dark\" 
+          ? theme.colors.gray10 
+          : theme.colors.gray10};
       transition: all 0.3s ease;
 
       .arrow {
