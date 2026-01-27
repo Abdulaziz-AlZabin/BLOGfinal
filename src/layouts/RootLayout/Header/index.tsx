@@ -236,39 +236,4 @@ const StyledHeader = styled.header`
       }
     }
   }
-
-  .theme-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-    background: ${({ theme }) => theme.colors.gray3};
-    color: ${({ theme }) => 
-      theme.scheme === "dark" 
-        ? theme.colors.gray11 
-        : theme.colors.gray11};
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
-    position: relative;
-
-    &:hover {
-      border-color: ${({ theme }) => theme.colors.primary};
-      color: ${({ theme }) => theme.colors.primary};
-      box-shadow: ${({ theme }) => 
-        theme.scheme === "dark" 
-          ? `0 0 10px rgba(0, 255, 65, 0.12)`
-          : "0 4px 12px rgba(99, 102, 241, 0.15)"};
-      transform: translateY(-2px) rotate(20deg);
-    }
-
-    svg {
-      width: 20px;
-      height: 20px;
-      position: relative;
-      z-index: 1;
-      transition: transform 0.3s ease;
-    }
-  }
 `
