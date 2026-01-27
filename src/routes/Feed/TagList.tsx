@@ -99,7 +99,6 @@ const StyledWrapper = styled.div`
     border: 1px solid ${({ theme }) => theme.colors.gray4};
     position: relative;
     overflow: hidden;
-    font-family: 'Courier New', monospace;
 
     &::before {
       content: '';
