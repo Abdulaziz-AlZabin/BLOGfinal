@@ -88,7 +88,10 @@ const StyledWrapper = styled.div`
     padding: 0.625rem 1.25rem;
     border-radius: 9999px;
     background: ${({ theme }) => theme.colors.gray3};
-    color: ${({ theme }) => theme.colors.gray11};
+    color: ${({ theme }) => 
+      theme.scheme === \"dark\" 
+        ? theme.colors.gray11 
+        : theme.colors.gray11};
     font-size: 0.875rem;
     font-weight: 500;
     white-space: nowrap;
