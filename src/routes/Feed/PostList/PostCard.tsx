@@ -322,7 +322,7 @@ const StyledWrapper = styled(Link)`
       font-size: 0.875rem;
       font-weight: 600;
       color: ${({ theme }) => 
-        theme.scheme === \"dark\" 
+        theme.scheme === "dark" 
           ? theme.colors.gray10 
           : theme.colors.gray10};
       transition: all 0.3s ease;
