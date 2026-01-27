@@ -225,14 +225,24 @@ const StyledWrapper = styled(Link)`
       width: fit-content;
       padding: 0.375rem 1rem;
       border-radius: 8px;
-      background: ${({ theme }) => `${theme.colors.primary}12`};
-      border: 1px solid ${({ theme }) => `${theme.colors.primary}30`};
+      background: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? `${theme.colors.primary}20` 
+          : `${theme.colors.primary}12`};
+      border: 1px solid ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.primary 
+          : `${theme.colors.primary}30`};
       color: ${({ theme }) => theme.colors.primary};
       font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       margin-bottom: 1rem;
+      box-shadow: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? `0 0 15px ${theme.colors.primary}30` 
+          : "none"};
     }
 
     .title {
