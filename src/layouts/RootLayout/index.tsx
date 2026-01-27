@@ -1,10 +1,6 @@
-import { useEffect, useState } from "react"
 import styled from "@emotion/styled"
 import { ThemeProvider } from "./ThemeProvider"
 import { Header } from "./Header"
-import { CONFIG } from "site.config"
-import { SchemeType } from "src/types"
-import { getCookie, setCookie } from "cookies-next"
 import Scripts from "./Scripts"
 import useGtagEffect from "./useGtagEffect"
 import InteractiveBackground from "src/components/InteractiveBackground"
@@ -14,32 +10,17 @@ type Props = {
 }
 
 export const RootLayout = ({ children }: Props) => {
-  const [scheme, setScheme] = useState<SchemeType>(CONFIG.blog.scheme as SchemeType)
-
   useGtagEffect()
 
-  useEffect(() => {
-    const savedScheme = getCookie("scheme") as SchemeType | undefined
-    if (savedScheme) {
-      setScheme(savedScheme)
-    } else if (CONFIG.blog.scheme === "system") {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-      setScheme(prefersDark ? "dark" : "light")
-    }
-  }, [])
-
-  const toggleScheme = () => {
-    const newScheme = scheme === "light" ? "dark" : "light"
-    setScheme(newScheme)
-    setCookie("scheme", newScheme, { maxAge: 60 * 60 * 24 * 365 })
-  }
+  // Always use dark mode
+  const scheme = "dark"
 
   return (
     <ThemeProvider scheme={scheme}>
       <Scripts />
       <InteractiveBackground />
       <StyledWrapper>
-        <Header scheme={scheme} toggleScheme={toggleScheme} />
+        <Header />
         <main className="main-content">
           {children}
         </main>
