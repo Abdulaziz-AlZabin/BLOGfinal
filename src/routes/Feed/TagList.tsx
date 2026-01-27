@@ -223,7 +223,7 @@ const StyledWrapper = styled.div`
     &.active .tag-count {
       background: ${({ theme }) => 
         theme.scheme === "dark"
-          ? theme.colors.neon
+          ? theme.colors.primary
           : "rgba(255, 255, 255, 0.3)"};
       color: ${({ theme }) => 
         theme.scheme === "dark" 
