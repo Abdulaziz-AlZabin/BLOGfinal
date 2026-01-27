@@ -213,7 +213,10 @@ const StyledWrapper = styled.div`
       border-radius: 9999px;
       background: ${({ theme }) => theme.colors.gray5};
       font-size: 0.75rem;
-      color: ${({ theme }) => theme.colors.gray10};
+      color: ${({ theme }) => 
+        theme.scheme === \"dark\" 
+          ? theme.colors.gray10 
+          : theme.colors.gray10};
       font-weight: 600;
       transition: all 0.3s ease;
     }
