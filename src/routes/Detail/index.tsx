@@ -1,12 +1,12 @@
-import useMermaidEffect from "./hooks/useMermaidEffect"
-import PostDetail from "./PostDetail"
-import PageDetail from "./PageDetail"
 import styled from "@emotion/styled"
-import usePostQuery from "src/hooks/usePostQuery"
 import Link from "next/link"
 import { FiArrowLeft, FiCalendar } from "react-icons/fi"
 import { CONFIG } from "site.config"
 import { formatDate } from "src/libs/utils"
+import useMermaidEffect from "./hooks/useMermaidEffect"
+import PostDetail from "./PostDetail"
+import PageDetail from "./PageDetail"
+import usePostQuery from "src/hooks/usePostQuery"
 
 const Detail: React.FC = () => {
   const data = usePostQuery()
@@ -113,10 +113,7 @@ const StyledWrapper = styled.div`
       font-size: 2.5rem;
       font-weight: 800;
       line-height: 1.2;
-      color: ${({ theme }) => 
-        theme.scheme === "dark" 
-          ? "#ffffff" 
-          : theme.colors.gray12};
+      color: #ffffff;
       margin-bottom: 1rem;
 
       @media (max-width: 640px) {
@@ -127,10 +124,7 @@ const StyledWrapper = styled.div`
     .summary {
       font-size: 1.125rem;
       line-height: 1.7;
-      color: ${({ theme }) => 
-        theme.scheme === "dark" 
-          ? theme.colors.gray11 
-          : theme.colors.gray10};
+      color: #e4e4e7;
       margin-bottom: 1.5rem;
     }
 
@@ -145,10 +139,7 @@ const StyledWrapper = styled.div`
         align-items: center;
         gap: 0.5rem;
         font-size: 0.875rem;
-        color: ${({ theme }) => 
-          theme.scheme === "dark" 
-            ? theme.colors.gray9 
-            : theme.colors.gray9};
+        color: #d4d4d8;
 
         svg {
           width: 16px;
