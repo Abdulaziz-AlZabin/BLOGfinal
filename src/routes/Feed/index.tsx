@@ -327,7 +327,10 @@ const StyledWrapper = styled.div`
     justify-content: space-between;
     margin: 2.5rem 0 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.gray4};
+    border-bottom: 1px solid ${({ theme }) => 
+      theme.scheme === "dark" 
+        ? `${theme.colors.primary}30` 
+        : theme.colors.gray4};
 
     h2 {
       font-size: 1.75rem;
@@ -343,7 +346,7 @@ const StyledWrapper = styled.div`
       font-size: 0.875rem;
       color: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? theme.colors.gray10 
+          ? "#d4d4d8" 
           : theme.colors.gray9};
     }
   }
