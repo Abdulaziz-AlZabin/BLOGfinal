@@ -111,10 +111,7 @@ const StyledTerminal = styled.div`
 
     .terminal-title {
       font-size: 0.75rem;
-      color: ${({ theme }) => 
-        theme.scheme === \"dark\" 
-          ? theme.colors.gray10 
-          : theme.colors.gray10};
+      color: ${({ theme }) => theme.colors.gray10};
       font-weight: 500;
     }
   }
@@ -122,10 +119,7 @@ const StyledTerminal = styled.div`
   .terminal-body {
     padding: 1.5rem;
     min-height: 200px;
-    color: ${({ theme }) => 
-      theme.scheme === \"dark\" 
-        ? theme.colors.gray11 
-        : theme.colors.gray11};
+    color: #e4e4e7;
     font-size: 0.9375rem;
     line-height: 1.8;
 
