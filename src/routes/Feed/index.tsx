@@ -392,13 +392,19 @@ const StyledWrapper = styled.div`
     p {
       font-size: 1.25rem;
       font-weight: 600;
-      color: ${({ theme }) => theme.colors.gray11};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.gray11 
+          : theme.colors.gray11};
       margin-bottom: 0.5rem;
       font-family: 'Courier New', monospace;
     }
 
     span {
-      color: ${({ theme }) => theme.colors.gray9};
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.gray9 
+          : theme.colors.gray9};
     }
   }
 
