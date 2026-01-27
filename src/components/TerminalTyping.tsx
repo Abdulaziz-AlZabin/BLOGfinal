@@ -111,7 +111,10 @@ const StyledTerminal = styled.div`
 
     .terminal-title {
       font-size: 0.75rem;
-      color: ${({ theme }) => theme.colors.gray10};
+      color: ${({ theme }) => 
+        theme.scheme === \"dark\" 
+          ? theme.colors.gray10 
+          : theme.colors.gray10};
       font-weight: 500;
     }
   }
