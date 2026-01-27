@@ -258,10 +258,7 @@ const StyledWrapper = styled.div`
     h2 {
       font-size: 1.5rem;
       font-weight: 700;
-      color: ${({ theme }) => 
-        theme.scheme === "dark" 
-          ? "#ffffff" 
-          : theme.colors.gray12};
+      color: #ffffff;
       margin-bottom: 1.25rem;
       padding-bottom: 0.75rem;
       border-bottom: 2px solid ${({ theme }) => theme.colors.primary};
