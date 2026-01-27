@@ -65,13 +65,22 @@ const StyledWrapper = styled.div`
     .avatar {
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid ${({ theme }) => theme.colors.gray4};
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      border: 3px solid ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.primary 
+          : theme.colors.gray4};
+      box-shadow: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? `0 0 20px ${theme.colors.primary}40` 
+          : "0 8px 24px rgba(0, 0, 0, 0.15)"};
       transition: transform 0.3s ease, box-shadow 0.3s ease;
 
       &:hover {
         transform: scale(1.02);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+        box-shadow: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? `0 0 30px ${theme.colors.primary}60` 
+            : "0 12px 32px rgba(0, 0, 0, 0.2)"};
       }
     }
   }
@@ -100,9 +109,19 @@ const StyledWrapper = styled.div`
       gap: 0.5rem;
       padding: 0.5rem 1.25rem;
       border-radius: 8px;
-      background: ${({ theme }) => `${theme.colors.primary}10`};
-      border: 1px solid ${({ theme }) => `${theme.colors.primary}30`};
+      background: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? `${theme.colors.primary}20` 
+          : `${theme.colors.primary}10`};
+      border: 1px solid ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.primary 
+          : `${theme.colors.primary}30`};
       margin-bottom: 1.5rem;
+      box-shadow: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? `0 0 15px ${theme.colors.primary}30` 
+          : "none"};
 
       .role-icon {
         width: 16px;
@@ -113,7 +132,10 @@ const StyledWrapper = styled.div`
       .role {
         font-size: 0.9375rem;
         font-weight: 600;
-        color: ${({ theme }) => theme.colors.primary};
+        color: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? theme.colors.primary 
+            : theme.colors.primary};
         text-transform: uppercase;
         letter-spacing: 0.05em;
       }
@@ -123,7 +145,7 @@ const StyledWrapper = styled.div`
       font-size: 1.125rem;
       color: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? theme.colors.gray11 
+          ? "#e4e4e7" 
           : theme.colors.gray10};
       line-height: 1.7;
       margin-bottom: 2rem;
