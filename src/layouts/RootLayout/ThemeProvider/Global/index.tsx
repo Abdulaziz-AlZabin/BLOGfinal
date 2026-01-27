@@ -18,9 +18,7 @@ export const Global = () => {
 
         body {
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-          background: ${theme.scheme === "dark" 
-            ? `linear-gradient(180deg, ${theme.colors.gray1} 0%, #0a0514 50%, #0a0a0b 100%)`
-            : theme.colors.gray1};
+          background: linear-gradient(180deg, ${theme.colors.gray1} 0%, #0a0514 50%, #0a0a0b 100%);
           background-attachment: fixed;
           color: ${theme.colors.gray12};
           transition: background 0.5s ease, color 0.3s ease;
