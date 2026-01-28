@@ -31,7 +31,7 @@ const InteractiveBackground: React.FC = () => {
     }
 
     const initParticles = () => {
-      const particleCount = Math.floor((canvas.width * canvas.height) / 8000)
+      const particleCount = Math.floor((canvas.width * canvas.height) / 4000)
       particlesRef.current = []
       
       for (let i = 0; i < particleCount; i++) {
