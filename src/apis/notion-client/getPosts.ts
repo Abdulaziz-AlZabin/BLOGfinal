@@ -17,11 +17,15 @@ export const getPosts = async () => {
 
   const response = await api.getPage(id)
   id = idToUuid(id)
-  const collection = Object.values(response.collection)[0]?.value
+  // Handle nested value structure from notion-client
+  const collectionData = Object.values(response.collection)[0]?.value
+  const collection = collectionData?.value || collectionData
   const block = response.block
   const schema = collection?.schema
 
-  const rawMetadata = block[id].value
+  // Handle nested value structure from notion-client
+  const blockData = block[id]?.value
+  const rawMetadata = blockData?.value || blockData
 
   // Check Type
   if (
@@ -36,12 +40,14 @@ export const getPosts = async () => {
     for (let i = 0; i < pageIds.length; i++) {
       const id = pageIds[i]
       const properties = (await getPageProperties(id, block, schema)) || null
+      // Handle nested value structure
+      const blockValue = block[id]?.value?.value || block[id]?.value
       // Add fullwidth, createdtime to properties
       properties.createdTime = new Date(
-        block[id].value?.created_time
+        blockValue?.created_time
       ).toString()
       properties.fullWidth =
-        (block[id].value?.format as any)?.page_full_width ?? false
+        (blockValue?.format as any)?.page_full_width ?? false
 
       data.push(properties)
     }
