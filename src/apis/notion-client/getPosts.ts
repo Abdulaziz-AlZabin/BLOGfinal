@@ -17,10 +17,10 @@ export const getPosts = async () => {
 
   const response = await api.getPage(id)
   id = idToUuid(id)
-  // Handle nested value structure from notion-client
-  const collectionData = Object.values(response.collection)[0]?.value
+  // Handle nested value structure from notion-client (cast to any for runtime structure)
+  const collectionData = Object.values(response.collection)[0]?.value as any
   const collection = collectionData?.value || collectionData
-  const block = response.block
+  const block = response.block as any
   const schema = collection?.schema
 
   // Handle nested value structure from notion-client
