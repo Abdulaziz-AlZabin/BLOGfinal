@@ -14,14 +14,15 @@ const TagList: React.FC<Props> = ({ tags, selectedTag, onSelectTag }) => {
 
   return (
     <StyledWrapper>
-      <div className="tags-scroll">
+      <div className="tags-container">
         {selectedTag && (
           <button
             className="tag clear-tag"
             onClick={() => onSelectTag(null)}
+            data-testid="clear-tag-filter"
           >
             <FiX />
-            Clear Filter
+            <span>Clear</span>
           </button>
         )}
         {sortedTags.map(([tag, count]) => (
@@ -29,6 +30,7 @@ const TagList: React.FC<Props> = ({ tags, selectedTag, onSelectTag }) => {
             key={tag}
             className={`tag ${selectedTag === tag ? "active" : ""}`}
             onClick={() => onSelectTag(selectedTag === tag ? null : tag)}
+            data-testid={`tag-${tag}`}
           >
             <FiHash className="hash-icon" />
             <span className="tag-name">{tag}</span>
@@ -45,127 +47,127 @@ export default TagList
 const StyledWrapper = styled.div`
   margin-bottom: 1.5rem;
 
+  @media (max-width: 768px) {
+    margin-bottom: 1.25rem;
+  }
+
   @media (max-width: 480px) {
     margin-bottom: 1rem;
   }
 
-  .tags-scroll {
+  .tags-container {
     display: flex;
-    gap: 0.75rem;
-    overflow-x: auto;
-    padding: 0.75rem 0;
-    scrollbar-width: thin;
-    scrollbar-color: ${({ theme }) => 
-      theme.scheme === "dark" 
-        ? `${theme.colors.neon}40 ${theme.colors.gray3}`
-        : `${theme.colors.gray7} ${theme.colors.gray3}`};
-    -webkit-overflow-scrolling: touch;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    padding: 0.5rem 0;
+
+    @media (max-width: 768px) {
+      gap: 0.5rem;
+    }
 
     @media (max-width: 480px) {
-      gap: 0.5rem;
-      padding: 0.5rem 0;
-    }
-
-    &::-webkit-scrollbar {
-      height: 6px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: ${({ theme }) => theme.colors.gray3};
-      border-radius: 10px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: ${({ theme }) => 
-        theme.scheme === "dark" 
-          ? theme.colors.neon
-          : theme.colors.gray7};
-      border-radius: 10px;
-
-      &:hover {
-        background: ${({ theme }) => 
-          theme.scheme === "dark" 
-            ? theme.colors.cyber
-            : theme.colors.gray8};
-      }
+      gap: 0.375rem;
     }
   }
 
   .tag {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.625rem 1.25rem;
-    border-radius: 9999px;
+    gap: 0.375rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
     background: ${({ theme }) => theme.colors.gray3};
     color: ${({ theme }) => 
       theme.scheme === "dark" 
         ? theme.colors.gray11 
         : theme.colors.gray11};
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 500;
     white-space: nowrap;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s ease;
     border: 1px solid ${({ theme }) => theme.colors.gray4};
-    position: relative;
-    overflow: hidden;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 
-    @media (max-width: 480px) {
-      padding: 0.5rem 0.875rem;
-      gap: 0.375rem;
-      font-size: 0.8125rem;
+    @media (max-width: 768px) {
+      padding: 0.4375rem 0.875rem;
+      font-size: 0.75rem;
+      gap: 0.3125rem;
+      border-radius: 16px;
     }
 
-    &::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: ${({ theme }) => 
-        theme.scheme === "dark"
-          ? `linear-gradient(135deg, ${theme.colors.neon}20, ${theme.colors.cyber}20)`
-          : theme.colors.gray4};
-      opacity: 0;
-      transition: opacity 0.3s ease;
+    @media (max-width: 480px) {
+      padding: 0.375rem 0.75rem;
+      font-size: 0.6875rem;
+      gap: 0.25rem;
+      border-radius: 14px;
     }
 
     .hash-icon {
-      width: 14px;
-      height: 14px;
-      position: relative;
-      z-index: 1;
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
       color: ${({ theme }) => 
         theme.scheme === "dark" 
           ? theme.colors.gray9 
-          : theme.colors.gray9};
-      transition: color 0.3s ease;
+          : theme.colors.gray8};
+      transition: color 0.25s ease;
+
+      @media (max-width: 768px) {
+        width: 11px;
+        height: 11px;
+      }
 
       @media (max-width: 480px) {
-        width: 12px;
-        height: 12px;
+        width: 10px;
+        height: 10px;
       }
     }
 
-    .tag-name,
-    .tag-count {
-      position: relative;
-      z-index: 1;
+    .tag-name {
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @media (max-width: 480px) {
+        max-width: 80px;
+      }
     }
 
-    &:hover {
+    .tag-count {
+      padding: 0.125rem 0.4375rem;
+      border-radius: 10px;
+      background: ${({ theme }) => theme.colors.gray5};
+      font-size: 0.6875rem;
+      color: ${({ theme }) => 
+        theme.scheme === "dark" 
+          ? theme.colors.gray10 
+          : theme.colors.gray9};
+      font-weight: 600;
+      min-width: 18px;
+      text-align: center;
+
+      @media (max-width: 768px) {
+        padding: 0.0625rem 0.375rem;
+        font-size: 0.625rem;
+        min-width: 16px;
+      }
+
+      @media (max-width: 480px) {
+        padding: 0.0625rem 0.3125rem;
+        font-size: 0.5625rem;
+        min-width: 14px;
+      }
+    }
+
+    &:hover, &:focus {
       background: ${({ theme }) => theme.colors.gray4};
       border-color: ${({ theme }) => 
         theme.scheme === "dark" 
           ? theme.colors.neon
           : theme.colors.gray5};
-      transform: translateY(-2px);
-      box-shadow: ${({ theme }) => 
-        theme.scheme === "dark" 
-          ? `0 4px 10px ${theme.colors.neonGlow}`
-          : "0 4px 12px rgba(0, 0, 0, 0.1)"};
-
-      &::before {
-        opacity: 1;
-      }
+      outline: none;
 
       .hash-icon {
         color: ${({ theme }) => 
@@ -175,10 +177,14 @@ const StyledWrapper = styled.div`
       }
     }
 
+    &:active {
+      transform: scale(0.97);
+    }
+
     &.active {
       background: ${({ theme }) => 
         theme.scheme === "dark"
-          ? `${theme.colors.primary}25`
+          ? `${theme.colors.primary}30`
           : theme.colors.primary};
       color: ${({ theme }) => 
         theme.scheme === "dark" 
@@ -190,12 +196,8 @@ const StyledWrapper = styled.div`
           : theme.colors.primary};
       box-shadow: ${({ theme }) => 
         theme.scheme === "dark" 
-          ? `0 0 20px ${theme.colors.primary}40`
-          : "0 4px 15px rgba(99, 102, 241, 0.3)"};
-
-      &::before {
-        opacity: 1;
-      }
+          ? `0 0 12px ${theme.colors.primary}30`
+          : "0 2px 8px rgba(99, 102, 241, 0.25)"};
 
       .hash-icon {
         color: ${({ theme }) => 
@@ -203,58 +205,50 @@ const StyledWrapper = styled.div`
             ? theme.colors.primary
             : "white"};
       }
+
+      .tag-count {
+        background: ${({ theme }) => 
+          theme.scheme === "dark"
+            ? theme.colors.primary
+            : "rgba(255, 255, 255, 0.25)"};
+        color: ${({ theme }) => 
+          theme.scheme === "dark" 
+            ? "#000"
+            : "white"};
+      }
     }
 
     &.clear-tag {
       background: ${({ theme }) => 
         theme.scheme === "dark"
-          ? `${theme.colors.error}20`
-          : `${theme.colors.error}15`};
+          ? `${theme.colors.error}15`
+          : `${theme.colors.error}10`};
       color: ${({ theme }) => theme.colors.error};
-      border-color: ${({ theme }) => `${theme.colors.error}40`};
+      border-color: ${({ theme }) => `${theme.colors.error}30`};
+      padding-right: 0.875rem;
 
-      &:hover {
-        background: ${({ theme }) => `${theme.colors.error}30`};
-        border-color: ${({ theme }) => theme.colors.error};
-        box-shadow: ${({ theme }) => 
-          theme.scheme === "dark" 
-            ? `0 4px 15px ${theme.colors.error}40`
-            : "0 4px 12px rgba(239, 68, 68, 0.2)"};
+      @media (max-width: 768px) {
+        padding-right: 0.75rem;
+      }
+
+      @media (max-width: 480px) {
+        padding-right: 0.625rem;
       }
 
       svg {
-        width: 14px;
-        height: 14px;
+        width: 12px;
+        height: 12px;
+
+        @media (max-width: 480px) {
+          width: 10px;
+          height: 10px;
+        }
       }
-    }
 
-    .tag-count {
-      padding: 0.25rem 0.625rem;
-      border-radius: 9999px;
-      background: ${({ theme }) => theme.colors.gray5};
-      font-size: 0.75rem;
-      color: ${({ theme }) => 
-        theme.scheme === "dark" 
-          ? theme.colors.gray10 
-          : theme.colors.gray10};
-      font-weight: 600;
-      transition: all 0.3s ease;
-
-      @media (max-width: 480px) {
-        padding: 0.125rem 0.5rem;
-        font-size: 0.6875rem;
+      &:hover, &:focus {
+        background: ${({ theme }) => `${theme.colors.error}25`};
+        border-color: ${({ theme }) => theme.colors.error};
       }
-    }
-
-    &.active .tag-count {
-      background: ${({ theme }) => 
-        theme.scheme === "dark"
-          ? theme.colors.primary
-          : "rgba(255, 255, 255, 0.3)"};
-      color: ${({ theme }) => 
-        theme.scheme === "dark" 
-          ? "#000"
-          : "white"};
     }
   }
 `
