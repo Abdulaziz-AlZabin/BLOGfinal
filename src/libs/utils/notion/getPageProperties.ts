@@ -9,8 +9,9 @@ async function getPageProperties(
   schema: CollectionPropertySchemaMap
 ) {
   const api = new NotionAPI()
-  // Handle nested value structure from notion-client
-  const blockValue = block?.[id]?.value?.value || block?.[id]?.value
+  // Handle nested value structure from notion-client (cast to any for runtime structure)
+  const blockData = (block as any)?.[id]?.value
+  const blockValue = blockData?.value || blockData
   const rawProperties = Object.entries(blockValue?.properties || [])
   const excludeProperties = ["date", "select", "multi_select", "person", "file"]
   const properties: any = {}
