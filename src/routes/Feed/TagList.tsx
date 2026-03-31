@@ -45,6 +45,10 @@ export default TagList
 const StyledWrapper = styled.div`
   margin-bottom: 1.5rem;
 
+  @media (max-width: 480px) {
+    margin-bottom: 1rem;
+  }
+
   .tags-scroll {
     display: flex;
     gap: 0.75rem;
@@ -55,6 +59,12 @@ const StyledWrapper = styled.div`
       theme.scheme === "dark" 
         ? `${theme.colors.neon}40 ${theme.colors.gray3}`
         : `${theme.colors.gray7} ${theme.colors.gray3}`};
+    -webkit-overflow-scrolling: touch;
+
+    @media (max-width: 480px) {
+      gap: 0.5rem;
+      padding: 0.5rem 0;
+    }
 
     &::-webkit-scrollbar {
       height: 6px;
@@ -100,6 +110,12 @@ const StyledWrapper = styled.div`
     position: relative;
     overflow: hidden;
 
+    @media (max-width: 480px) {
+      padding: 0.5rem 0.875rem;
+      gap: 0.375rem;
+      font-size: 0.8125rem;
+    }
+
     &::before {
       content: '';
       position: absolute;
@@ -122,6 +138,11 @@ const StyledWrapper = styled.div`
           ? theme.colors.gray9 
           : theme.colors.gray9};
       transition: color 0.3s ease;
+
+      @media (max-width: 480px) {
+        width: 12px;
+        height: 12px;
+      }
     }
 
     .tag-name,
@@ -218,6 +239,11 @@ const StyledWrapper = styled.div`
           : theme.colors.gray10};
       font-weight: 600;
       transition: all 0.3s ease;
+
+      @media (max-width: 480px) {
+        padding: 0.125rem 0.5rem;
+        font-size: 0.6875rem;
+      }
     }
 
     &.active .tag-count {

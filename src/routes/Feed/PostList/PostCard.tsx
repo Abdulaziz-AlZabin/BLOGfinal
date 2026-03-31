@@ -220,6 +220,10 @@ const StyledWrapper = styled(Link)`
     display: flex;
     flex-direction: column;
 
+    @media (max-width: 480px) {
+      padding: 1rem;
+    }
+
     .category {
       display: inline-block;
       width: fit-content;
@@ -243,6 +247,12 @@ const StyledWrapper = styled(Link)`
         theme.scheme === "dark" 
           ? `0 0 15px ${theme.colors.primary}30` 
           : "none"};
+
+      @media (max-width: 480px) {
+        padding: 0.25rem 0.75rem;
+        font-size: 0.6875rem;
+        margin-bottom: 0.75rem;
+      }
     }
 
     .title {
@@ -259,6 +269,11 @@ const StyledWrapper = styled(Link)`
       -webkit-box-orient: vertical;
       overflow: hidden;
       transition: color 0.3s ease;
+
+      @media (max-width: 480px) {
+        font-size: 1.125rem;
+        margin-bottom: 0.625rem;
+      }
     }
 
     .summary {
@@ -273,6 +288,12 @@ const StyledWrapper = styled(Link)`
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+
+      @media (max-width: 480px) {
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+        -webkit-line-clamp: 3;
+      }
     }
 
     .meta {
@@ -285,6 +306,11 @@ const StyledWrapper = styled(Link)`
       padding-top: 1rem;
       border-top: 1px solid ${({ theme }) => theme.colors.gray4};
 
+      @media (max-width: 480px) {
+        gap: 0.5rem;
+        padding-top: 0.75rem;
+      }
+
       .date {
         display: flex;
         align-items: center;
@@ -295,6 +321,11 @@ const StyledWrapper = styled(Link)`
             ? "#d4d4d8" 
             : theme.colors.gray9};
 
+        @media (max-width: 480px) {
+          font-size: 0.75rem;
+          gap: 0.375rem;
+        }
+
         svg {
           width: 14px;
           height: 14px;
@@ -302,6 +333,11 @@ const StyledWrapper = styled(Link)`
             theme.scheme === "dark" 
               ? theme.colors.primary 
               : theme.colors.primary};
+
+          @media (max-width: 480px) {
+            width: 12px;
+            height: 12px;
+          }
         }
       }
 
@@ -309,12 +345,20 @@ const StyledWrapper = styled(Link)`
         display: flex;
         gap: 0.5rem;
 
+        @media (max-width: 480px) {
+          gap: 0.375rem;
+        }
+
         .tag {
           font-size: 0.8125rem;
           color: ${({ theme }) => 
             theme.scheme === "dark" 
               ? theme.colors.primary 
               : theme.colors.gray9};
+
+          @media (max-width: 480px) {
+            font-size: 0.75rem;
+          }
 
           &.more {
             color: ${({ theme }) => theme.colors.primary};
@@ -337,10 +381,20 @@ const StyledWrapper = styled(Link)`
           : theme.colors.gray10};
       transition: all 0.3s ease;
 
+      @media (max-width: 480px) {
+        margin-top: 0.75rem;
+        font-size: 0.8125rem;
+      }
+
       .arrow {
         width: 16px;
         height: 16px;
         transition: transform 0.3s ease;
+
+        @media (max-width: 480px) {
+          width: 14px;
+          height: 14px;
+        }
       }
     }
   }

@@ -47,11 +47,19 @@ const StyledWrapper = styled.div`
     margin: 0 auto;
     padding: 2rem;
     position: relative;
+
+    @media (max-width: 480px) {
+      padding: 1rem;
+    }
   }
 
   .avatar-section {
     margin-bottom: 2rem;
     position: relative;
+
+    @media (max-width: 480px) {
+      margin-bottom: 1.25rem;
+    }
   }
 
   .avatar-container {
@@ -61,6 +69,11 @@ const StyledWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media (max-width: 480px) {
+      width: 100px;
+      height: 100px;
+    }
 
     .avatar {
       border-radius: 50%;
@@ -74,6 +87,10 @@ const StyledWrapper = styled.div`
           ? `0 0 20px ${theme.colors.primary}40` 
           : "0 8px 24px rgba(0, 0, 0, 0.15)"};
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      @media (max-width: 480px) {
+        border-width: 2px;
+      }
 
       &:hover {
         transform: scale(1.02);
@@ -101,6 +118,11 @@ const StyledWrapper = styled.div`
       @media (max-width: 640px) {
         font-size: 2rem;
       }
+
+      @media (max-width: 480px) {
+        font-size: 1.625rem;
+        margin-bottom: 0.75rem;
+      }
     }
 
     .role-badge {
@@ -123,10 +145,21 @@ const StyledWrapper = styled.div`
           ? `0 0 15px ${theme.colors.primary}30` 
           : "none"};
 
+      @media (max-width: 480px) {
+        padding: 0.375rem 1rem;
+        gap: 0.375rem;
+        margin-bottom: 1rem;
+      }
+
       .role-icon {
         width: 16px;
         height: 16px;
         color: ${({ theme }) => theme.colors.primary};
+
+        @media (max-width: 480px) {
+          width: 14px;
+          height: 14px;
+        }
       }
 
       .role {
@@ -138,6 +171,10 @@ const StyledWrapper = styled.div`
             : theme.colors.primary};
         text-transform: uppercase;
         letter-spacing: 0.05em;
+
+        @media (max-width: 480px) {
+          font-size: 0.75rem;
+        }
       }
     }
 
@@ -152,6 +189,12 @@ const StyledWrapper = styled.div`
       max-width: 500px;
       margin-left: auto;
       margin-right: auto;
+
+      @media (max-width: 480px) {
+        font-size: 0.9375rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
     }
   }
 `

@@ -171,7 +171,7 @@ const StyledHeader = styled.header`
     gap: 0.5rem;
 
     @media (max-width: 640px) {
-      display: none;
+      gap: 0.25rem;
     }
 
     .social-link {
@@ -186,6 +186,11 @@ const StyledHeader = styled.header`
       border: 1px solid transparent;
       position: relative;
 
+      @media (max-width: 640px) {
+        width: 34px;
+        height: 34px;
+      }
+
       &:hover {
         color: ${({ theme }) => theme.colors.primary};
         border-color: ${({ theme }) => theme.colors.neon};
@@ -197,6 +202,11 @@ const StyledHeader = styled.header`
       svg {
         width: 18px;
         height: 18px;
+
+        @media (max-width: 640px) {
+          width: 16px;
+          height: 16px;
+        }
       }
     }
   }

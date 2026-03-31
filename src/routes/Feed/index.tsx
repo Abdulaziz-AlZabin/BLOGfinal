@@ -263,6 +263,10 @@ const StyledWrapper = styled.div`
     padding: 5px;
     border: 1px solid ${({ theme }) => theme.colors.gray4};
 
+    @media (max-width: 640px) {
+      align-self: flex-end;
+    }
+
     button {
       display: flex;
       align-items: center;
@@ -273,6 +277,11 @@ const StyledWrapper = styled.div`
       color: ${({ theme }) => theme.colors.gray8};
       transition: all 0.3s ease;
       position: relative;
+
+      @media (max-width: 480px) {
+        width: 38px;
+        height: 34px;
+      }
 
       &::before {
         content: '';
@@ -332,6 +341,10 @@ const StyledWrapper = styled.div`
         ? `${theme.colors.primary}30` 
         : theme.colors.gray4};
 
+    @media (max-width: 480px) {
+      margin: 1.5rem 0 1rem;
+    }
+
     h2 {
       font-size: 1.75rem;
       font-weight: 700;
@@ -340,6 +353,10 @@ const StyledWrapper = styled.div`
           ? "#ffffff" 
           : theme.colors.gray12};
       letter-spacing: -0.02em;
+
+      @media (max-width: 480px) {
+        font-size: 1.375rem;
+      }
     }
 
     .post-count {
@@ -348,6 +365,10 @@ const StyledWrapper = styled.div`
         theme.scheme === "dark" 
           ? "#d4d4d8" 
           : theme.colors.gray9};
+
+      @media (max-width: 480px) {
+        font-size: 0.75rem;
+      }
     }
   }
 
@@ -359,6 +380,12 @@ const StyledWrapper = styled.div`
 
       @media (max-width: 768px) {
         grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+        gap: 0.875rem;
       }
     }
 
@@ -366,6 +393,10 @@ const StyledWrapper = styled.div`
       display: flex;
       flex-direction: column;
       gap: 1.25rem;
+
+      @media (max-width: 480px) {
+        gap: 0.875rem;
+      }
     }
   }
 
